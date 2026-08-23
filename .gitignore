@@ -1,0 +1,6 @@
+# sources lourdes de retravail — la page ne sert que les .webp
+img/*.jpg
+# images ecartees (parlement de Budapest / eglise) — conservees hors depot
+img/RECALE-*
+# sauvegardes locales
+*.avant-*

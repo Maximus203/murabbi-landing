@@ -1,0 +1,672 @@
+/* ==========================================================================
+   Murabbi — landing
+   Les tokens ci-dessous sont repris tels quels du design system de
+   l'application Flutter (lib/presentation/theme/app_colors.dart).
+   Seule exception documentée : --accent-ink, une variante plus sombre de
+   l'accent réservée au TEXTE de petite taille, l'accent nominal #8B6F47
+   plafonnant à 4,22:1 sur le fond clair (sous le seuil AA de 4,5:1).
+   ========================================================================== */
+
+:root {
+  /* Fonds */
+  --bg:            #F5F2ED;
+  --surface:       #FDFBF8;
+  --surface-sunk:  #EDE9E2;
+  /* Texte */
+  --text:          #1C1A16;
+  --text-2:        #6B6155;
+  --text-3:        #A89880;
+  /* Accent */
+  --accent:        #8B6F47;
+  --accent-hover:  #7A6240;
+  --accent-ink:    #7A6240;
+  --on-accent:     #FDFBF8;
+  /* Sémantiques */
+  --success:       #6B8C6B;
+  --warning:       #9B5E3C;
+  --danger:        #8C3D3D;
+  /* Catégories (marqueurs d'identité — identiques dans les deux thèmes) */
+  --cat-religion:  #8B6F47;
+  --cat-sport:     #6B8C6B;
+  --cat-sante:     #5C7A8C;
+  --cat-mental:    #7A6B8C;
+  --cat-social:    #9B7A4A;
+  --cat-etudes:    #8C6B5C;
+  --cat-famille:   #A88C5C;
+  --cat-finance:   #5C8C7A;
+  /* Bordures */
+  --hairline:      rgba(28, 26, 22, 0.08);
+  --border:        rgba(28, 26, 22, 0.16);
+  --shadow:        0 1px 2px rgba(28,26,22,.04), 0 8px 24px -12px rgba(28,26,22,.10);
+  --shadow-lift:   0 1px 2px rgba(28,26,22,.05), 0 20px 48px -20px rgba(28,26,22,.18);
+  --glow:          rgba(139, 111, 71, .10);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:           #1A1814;
+    --surface:      #252220;
+    --surface-sunk: #302D2A;
+    --text:         #F0EDE8;
+    --text-2:       #A8998A;
+    --text-3:       #9A8B7A;
+    --accent:       #A68655;
+    --accent-hover: #8B6F47;
+    --accent-ink:   #A68655;
+    --on-accent:    #252220;
+    --success:      #8FB98F;
+    --warning:      #D4956B;
+    --danger:       #D08A8A;
+    --hairline:     rgba(240, 237, 232, 0.10);
+    --border:       rgba(240, 237, 232, 0.20);
+    --shadow:       0 1px 2px rgba(0,0,0,.30), 0 8px 24px -12px rgba(0,0,0,.55);
+    --shadow-lift:  0 1px 2px rgba(0,0,0,.35), 0 20px 48px -20px rgba(0,0,0,.70);
+    --glow:         rgba(166, 134, 85, .16);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:           #1A1814;
+  --surface:      #252220;
+  --surface-sunk: #302D2A;
+  --text:         #F0EDE8;
+  --text-2:       #A8998A;
+  --text-3:       #9A8B7A;
+  --accent:       #A68655;
+  --accent-hover: #8B6F47;
+  --accent-ink:   #A68655;
+  --on-accent:    #252220;
+  --success:      #8FB98F;
+  --warning:      #D4956B;
+  --danger:       #D08A8A;
+  --hairline:     rgba(240, 237, 232, 0.10);
+  --border:       rgba(240, 237, 232, 0.20);
+  --shadow:       0 1px 2px rgba(0,0,0,.30), 0 8px 24px -12px rgba(0,0,0,.55);
+  --shadow-lift:  0 1px 2px rgba(0,0,0,.35), 0 20px 48px -20px rgba(0,0,0,.70);
+  --glow:         rgba(166, 134, 85, .16);
+  color-scheme: dark;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .serif {
+  font-family: 'Newsreader', ui-serif, Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; }
+
+.mono {
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+:where(a, button, input, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 100;
+  background: var(--accent); color: var(--on-accent);
+  padding: 10px 16px; border-radius: 10px; font-weight: 500; text-decoration: none;
+  transition: top .18s ease;
+}
+.skip:focus { top: 12px; }
+
+/* ---------- Layout ---------- */
+.wrap { width: 100%; max-width: 1140px; margin-inline: auto; padding-inline: 20px; }
+@media (min-width: 720px) { .wrap { padding-inline: 32px; } }
+
+section { padding-block: 72px; }
+@media (min-width: 900px) { section { padding-block: 112px; } }
+
+.rule { height: 1px; background: var(--hairline); border: 0; margin: 0; }
+
+/* ---------- Micro-label (repris de l'app : capitales, tracking, accent) ---------- */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent-ink);
+  margin: 0 0 20px;
+}
+.eyebrow::before {
+  content: ""; width: 18px; height: 1px; background: currentColor; opacity: .5; flex: none;
+}
+
+/* ---------- En-tête ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s ease;
+}
+.site-header[data-stuck="true"] { border-bottom-color: var(--hairline); }
+.site-header .wrap {
+  display: flex; align-items: center; gap: 16px;
+  height: 64px;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  text-decoration: none; margin-right: auto; font-family: 'Newsreader', serif;
+  font-size: 21px; font-weight: 600; letter-spacing: -0.015em;
+}
+.brand svg { flex: none; }
+.header-actions { display: flex; align-items: center; gap: 8px; }
+
+.icon-btn {
+  width: 38px; height: 38px; display: inline-grid; place-items: center;
+  background: transparent; color: var(--text-2);
+  border: 1px solid var(--hairline); border-radius: 11px;
+  cursor: pointer; transition: color .16s ease, border-color .16s ease, background .16s ease;
+}
+.icon-btn:hover { color: var(--text); border-color: var(--border); background: var(--surface); }
+.icon-btn .moon { display: none; }
+:root[data-theme="dark"] .icon-btn .sun,
+.icon-btn .sun { display: block; }
+:root[data-theme="dark"] .icon-btn .sun { display: none; }
+:root[data-theme="dark"] .icon-btn .moon { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-btn .sun { display: none; }
+  :root:not([data-theme="light"]) .icon-btn .moon { display: block; }
+}
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 14px 22px; border-radius: 13px;
+  font: inherit; font-weight: 600; font-size: 15px; line-height: 1;
+  text-decoration: none; cursor: pointer; border: 1px solid transparent;
+  transition: background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease;
+}
+.btn:active { transform: translateY(1px); }
+@media (prefers-reduced-motion: reduce) { .btn:active { transform: none; } }
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+.btn-ghost:hover { background: var(--surface); border-color: var(--text-3); }
+.btn-sm { padding: 10px 16px; font-size: 14px; border-radius: 11px; }
+
+/* ---------- Cartes ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+
+/* ==========================================================================
+   Héros
+   ========================================================================== */
+.hero { position: relative; padding-block: 56px 72px; overflow: hidden; }
+@media (min-width: 900px) { .hero { padding-block: 88px 120px; } }
+
+.hero::before {
+  content: ""; position: absolute; inset: -30% -10% auto -10%; height: 620px;
+  background: radial-gradient(circle 42vmax at 62% 18%, var(--glow), transparent 70%);
+  pointer-events: none;
+}
+.hero > .wrap { position: relative; }
+
+.hero-grid { display: grid; gap: 48px; align-items: center; }
+@media (min-width: 980px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: 64px; }
+}
+
+.hero h1 { font-size: clamp(38px, 8.2vw, 66px); line-height: 1.06; letter-spacing: -0.025em; }
+.hero h1 em { font-style: italic; color: var(--accent-ink); }
+.hero-sub {
+  margin-top: 22px; font-size: clamp(17px, 2.1vw, 19px); color: var(--text-2);
+  max-width: 34em;
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.hero-note {
+  margin-top: 18px; font-size: 13.5px; color: var(--text-2);
+  display: flex; align-items: center; gap: 8px;
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); flex: none; }
+
+/* --- Carte « aujourd'hui » (miroir de l'écran d'accueil) --- */
+.today { padding: 22px; border-radius: 24px; }
+@media (min-width: 480px) { .today { padding: 26px; } }
+
+.today-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.today-label { font-size: 11.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-ink); }
+.today-date { margin-top: 6px; font-size: 14px; color: var(--text-2); }
+
+.city-select {
+  appearance: none; -webkit-appearance: none;
+  background: var(--surface-sunk); color: var(--text);
+  border: 1px solid var(--hairline); border-radius: 10px;
+  padding: 8px 30px 8px 12px; font: inherit; font-size: 13px; font-weight: 500;
+  cursor: pointer; flex: none; max-width: 46%;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 14px center, right 9px center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+/* Arc du jour */
+.arc { margin: 26px 0 4px; }
+.arc svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.anchors { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-top: 18px; }
+.anchor {
+  text-align: center; padding: 10px 4px; border-radius: 13px;
+  border: 1px solid transparent; transition: background .2s ease, border-color .2s ease;
+}
+.anchor[data-next="true"] { background: color-mix(in srgb, var(--accent) 14%, transparent); border-color: color-mix(in srgb, var(--accent) 28%, transparent); }
+.anchor-name { font-size: 12.5px; color: var(--text-2); }
+.anchor[data-next="true"] .anchor-name { color: var(--text); font-weight: 500; }
+.anchor-time { font-size: 14px; margin-top: 3px; font-weight: 500; }
+.anchor[data-past="true"] .anchor-name,
+.anchor[data-past="true"] .anchor-time { opacity: .48; }
+
+.today-foot {
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--hairline);
+  font-size: 12.5px; color: var(--text-2); line-height: 1.5;
+}
+
+/* ==========================================================================
+   Section « le décalage » + graphe annuel
+   ========================================================================== */
+.section-head { max-width: 46rem; }
+.section-head h2 { font-size: clamp(29px, 4.6vw, 44px); letter-spacing: -0.022em; }
+.section-head p { margin-top: 18px; font-size: 17px; color: var(--text-2); }
+
+.drift { margin-top: 44px; }
+.drift-card { padding: 22px 18px 18px; border-radius: 24px; }
+@media (min-width: 720px) { .drift-card { padding: 30px 30px 22px; } }
+
+.drift-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 20px; font-size: 13px; color: var(--text-2); }
+.legend-key { display: inline-flex; align-items: center; gap: 8px; }
+.legend-swatch { width: 22px; height: 3px; border-radius: 2px; flex: none; }
+
+.chart-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.chart-scroll svg { display: block; width: 100%; min-width: 480px; height: auto; }
+
+.drift-readout {
+  margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--hairline);
+  display: grid; gap: 18px;
+}
+@media (min-width: 640px) { .drift-readout { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.readout-k { font-size: 11.5px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; color: var(--accent-ink); }
+.readout-v { font-size: clamp(24px, 3.4vw, 30px); margin-top: 6px; font-weight: 500; letter-spacing: -0.02em; }
+.readout-d { font-size: 13.5px; color: var(--text-2); margin-top: 4px; }
+
+/* ==========================================================================
+   Simulateur de déclencheur
+   ========================================================================== */
+.trigger-grid { display: grid; gap: 36px; margin-top: 44px; align-items: start; }
+@media (min-width: 940px) { .trigger-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 52px; } }
+
+.builder { padding: 24px; border-radius: 24px; }
+@media (min-width: 480px) { .builder { padding: 28px; } }
+.builder-row + .builder-row { margin-top: 22px; }
+.builder-k {
+  font-size: 11.5px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase;
+  color: var(--text-2); display: block; margin-bottom: 10px;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 9px 15px; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 500;
+  background: var(--surface-sunk); color: var(--text-2);
+  border: 1px solid transparent; cursor: pointer;
+  transition: background .16s ease, color .16s ease, border-color .16s ease;
+}
+.chip:hover { color: var(--text); }
+.chip[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--text);
+}
+
+.offset-row { display: flex; align-items: center; gap: 14px; }
+.offset-row input[type="range"] { flex: 1; min-width: 0; accent-color: var(--accent); height: 24px; }
+.offset-val { font-size: 15px; font-weight: 500; min-width: 5.5ch; text-align: right; flex: none; }
+
+.builder-out {
+  margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--hairline);
+}
+.sentence { font-size: clamp(18px, 2.6vw, 21px); line-height: 1.45; }
+.sentence b { font-weight: 600; color: var(--accent-ink); }
+
+.resolved { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+.resolved-cell { background: var(--surface-sunk); border-radius: 14px; padding: 13px 12px; text-align: center; }
+.resolved-k { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-2); }
+.resolved-v { font-size: clamp(17px, 3vw, 20px); font-weight: 500; margin-top: 5px; letter-spacing: -0.01em; }
+
+/* Sous 400 px, les trois colonnes ne tiennent pas : « Aujourd'hui » est un mot
+   insécable de 84 px, ce qui imposait à la carte une largeur minimale de
+   326 px — au-delà des 280 px disponibles sur un écran de 320 px. La colonne
+   débordait alors sous `overflow-x: hidden`, donc se faisait couper en
+   silence. Les trois cellules passent en lignes : libellé à gauche, heure à
+   droite. La comparaison reste lisible, et rien n'est tronqué. */
+@media (max-width: 400px) {
+  .resolved { grid-template-columns: 1fr; gap: 8px; }
+  .resolved-cell {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; text-align: left; padding: 11px 14px;
+  }
+  .resolved-v { margin-top: 0; }
+}
+
+.trigger-points { display: grid; gap: 26px; }
+.point { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 16px; align-items: start; }
+.point-num {
+  width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center;
+  /* 10 % et non 15 % : sur un aplat à 15 %, l'encre d'accent plafonnait à
+     4,32:1 en clair et 4,25:1 en sombre — sous le seuil AA de 4,5:1 pour ce
+     corps de 13 px. Éclaircir le fond en clair et l'assombrir en sombre
+     écarte les deux valeurs de l'encre dans les deux thèmes à la fois. */
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent-ink); font-size: 13px; font-weight: 600;
+}
+.point h3 { font-family: 'Geist', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: 0; }
+.point p { margin-top: 7px; color: var(--text-2); font-size: 15.5px; }
+
+/* ==========================================================================
+   Capacités
+   ========================================================================== */
+.caps { display: grid; gap: 14px; margin-top: 44px; }
+@media (min-width: 640px) { .caps { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .caps { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+
+.cap { padding: 22px; border-radius: 20px; display: grid; grid-template-columns: 38px 1fr; gap: 14px; align-items: start; }
+.cap-icon { width: 38px; height: 38px; display: grid; place-items: center; color: var(--accent); flex: none; }
+.cap h3 { font-family: 'Geist', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: 0; }
+.cap p { margin-top: 6px; font-size: 14.5px; color: var(--text-2); line-height: 1.5; }
+
+.caps-foot {
+  margin-top: 22px; font-size: 15px; color: var(--text-2);
+  display: flex; gap: 12px; align-items: flex-start; max-width: 52rem;
+}
+.caps-foot svg { flex: none; margin-top: 3px; color: var(--accent); }
+
+/* ==========================================================================
+   Cercle & consentement
+   ========================================================================== */
+.circle-grid { display: grid; gap: 40px; margin-top: 44px; align-items: start; }
+@media (min-width: 940px) { .circle-grid { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: 56px; } }
+
+.consent-card { padding: 8px 0; border-radius: 24px; overflow: hidden; }
+.consent-head { padding: 22px 24px 18px; border-bottom: 1px solid var(--hairline); }
+.consent-head .today-label { display: block; }
+.consent-head p { margin-top: 8px; font-size: 14.5px; color: var(--text-2); }
+
+.consent-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 17px 24px; border-bottom: 1px solid var(--hairline);
+}
+.consent-row:last-child { border-bottom: 0; }
+.consent-txt { flex: 1; min-width: 0; }
+.consent-title { font-size: 15px; font-weight: 500; }
+.consent-q { font-size: 13px; color: var(--text-2); margin-top: 3px; line-height: 1.45; }
+
+.switch {
+  position: relative; width: 46px; height: 27px; flex: none;
+  background: var(--surface-sunk); border: 1px solid var(--border); border-radius: 999px;
+  cursor: pointer; padding: 0; transition: background .2s ease, border-color .2s ease;
+}
+.switch::after {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 21px; height: 21px;
+  border-radius: 50%; background: var(--text-3);
+  transition: transform .2s ease, background .2s ease;
+}
+@media (prefers-reduced-motion: reduce) { .switch::after { transition: none; } }
+.switch[aria-checked="true"] { background: var(--accent); border-color: var(--accent); }
+.switch[aria-checked="true"]::after { transform: translateX(19px); background: var(--on-accent); }
+
+.nudge-demo {
+  margin: 0 24px 4px; padding: 16px 18px; border-radius: 16px;
+  background: var(--surface-sunk); font-size: 14px; line-height: 1.5;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.nudge-demo svg { flex: none; margin-top: 2px; }
+.nudge-demo[data-state="blocked"] { color: var(--text-2); }
+.nudge-demo[data-state="blocked"] svg { color: var(--text-3); }
+.nudge-demo[data-state="allowed"] svg { color: var(--success); }
+
+/* ==========================================================================
+   Calendrier
+   ========================================================================== */
+.cal-grid { display: grid; gap: 40px; margin-top: 44px; align-items: center; }
+@media (min-width: 940px) { .cal-grid { grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); gap: 56px; } }
+
+.month { padding: 24px; border-radius: 24px; }
+.month-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.month-head h3 { font-size: 20px; }
+.month-head span { font-size: 12.5px; color: var(--text-2); }
+
+.dow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 8px; }
+/* --text-2 et non --text-3 : à 11 px, le gris tertiaire tombait à 2,72:1 sur
+   la surface claire. La hiérarchie tient par le corps et la casse, pas par un
+   gris illisible. */
+.dow span { text-align: center; font-size: 11px; font-weight: 600; letter-spacing: .06em; color: var(--text-2); text-transform: uppercase; }
+.dow span:nth-child(5) { color: var(--accent-ink); }
+
+.days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.day {
+  aspect-ratio: 1; display: grid; place-items: center; border-radius: 11px;
+  font-size: 13.5px; color: var(--text-2); position: relative;
+}
+.day[data-friday="true"] { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.day[data-white="true"] {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--text); font-weight: 600;
+}
+.day[data-white="true"]::after {
+  content: ""; position: absolute; bottom: 5px; width: 4px; height: 4px;
+  border-radius: 50%; background: var(--accent);
+}
+.month-key { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--hairline); font-size: 12.5px; color: var(--text-2); }
+.key-item { display: inline-flex; align-items: center; gap: 7px; }
+.key-swatch { width: 13px; height: 13px; border-radius: 4px; flex: none; }
+
+.cal-list { display: grid; gap: 22px; }
+.cal-item { padding-left: 18px; border-left: 2px solid var(--hairline); }
+.cal-item h3 { font-family: 'Geist', sans-serif; font-size: 16.5px; font-weight: 600; letter-spacing: 0; }
+.cal-item p { margin-top: 6px; color: var(--text-2); font-size: 15px; }
+
+/* ==========================================================================
+   Paliers
+   ========================================================================== */
+.levels { margin-top: 48px; }
+.level-track { display: grid; gap: 10px; }
+@media (min-width: 780px) { .level-track { grid-template-columns: repeat(6, 1fr); gap: 12px; } }
+
+.level {
+  padding: 18px 18px 20px; border-radius: 18px;
+  background: var(--surface); border: 1px solid var(--hairline);
+  display: grid; gap: 6px; align-content: start;
+  position: relative; overflow: hidden;
+}
+.level::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 3px;
+  background: var(--accent); opacity: calc(.18 + var(--i) * .164);
+}
+.level-name { font-family: 'Newsreader', serif; font-size: 19px; font-weight: 600; }
+.level-th { font-size: 12.5px; color: var(--text-2); }
+.level-goal { font-size: 12.5px; color: var(--text-2); }
+.level[data-last="true"] {
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 32%, transparent);
+}
+.levels-foot { margin-top: 24px; font-size: 15px; color: var(--text-2); max-width: 46rem; }
+
+/* ==========================================================================
+   Respiration photographique
+   Seule image de la page. Elle sépare la progression (« ça se mérite en
+   années ») de la promesse. Le texte est posé sur la partie basse de la
+   photo — les dunes, quasi noires — et un voile dégradé garantit le
+   contraste quel que soit le recadrage. Ce voile est appliqué SUR la photo,
+   donc les couleurs du texte sont fixes : elles ne suivent pas le thème,
+   parce que le fond, lui, ne change pas d'un thème à l'autre.
+   ========================================================================== */
+.breath {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  overflow: hidden;                 /* aucun débordement horizontal possible */
+  background: var(--surface-sunk);  /* couleur d'attente avant décodage */
+  border-block: 1px solid var(--hairline);
+}
+
+/* Hauteur imposée en CSS + attributs width/height sur la balise :
+   la place est réservée avant le chargement, aucun décalage de mise en page. */
+.breath img {
+  display: block;
+  width: 100%;
+  height: clamp(300px, 46vw, 500px);
+  object-fit: cover;
+  /* `cover` sur une photo PORTRAIT (2:3) dans un bandeau dont le rapport passe
+     de ~1,07 (320 px) à ~5 (ultra-large) : le point de recadrage doit suivre la
+     largeur, sinon la silhouette — le sujet de la photo — sort du cadre.
+
+     Règle de calage : la silhouette est à 64,5 % de la hauteur de la photo ;
+     chaque palier ci-dessous la maintient entre ~20 % et ~50 % du haut du
+     bandeau. Vérifié au rendu de 320 à 2560 px.
+
+     ⚠️ Ces valeurs dépendent de DEUX choses : le rapport 2:3 de la photo et la
+     règle `height` juste au-dessus. Toucher à l'une des deux impose de refaire
+     la passe de vérification — un palier mal placé ne « décale » pas la photo,
+     il fait DISPARAÎTRE la silhouette (c'était le cas entre 480 et 640 px). */
+  object-position: 50% 94%;
+}
+@media (min-width: 500px)  { .breath img { object-position: 50% 84%; } }
+@media (min-width: 1000px) { .breath img { object-position: 50% 76%; } }
+@media (min-width: 1600px) { .breath img { object-position: 50% 72%; } }
+@media (min-width: 2200px) { .breath img { object-position: 50% 66%; } }
+
+.breath::after {
+  content: "";
+  position: absolute; inset: 0;
+  /* Le voile doit tenir le contraste du texte au PIRE recadrage, pas au plus
+     favorable : c'est à 320 px que le bandeau est le plus court et que le
+     sur-titre remonte sur du sable encore clair. Stops renforcés en
+     conséquence. Mesuré sur les pixels composités, en échantillonnant le pixel
+     LE PLUS CLAIR sous chaque bloc de texte (pire cas, pas une moyenne) :
+     sur-titre à 320 px = 6,79:1 avant, 8,25:1 après. C'est le pire des 14
+     largeurs testées ; partout ailleurs on est entre 9:1 et 17,6:1. */
+  background: linear-gradient(to top,
+              rgba(18, 12, 8, .92) 0%,
+              rgba(18, 12, 8, .82) 22%,
+              rgba(18, 12, 8, .44) 48%,
+              rgba(18, 12, 8, 0) 74%);
+  pointer-events: none;
+}
+
+.breath figcaption {
+  position: absolute; inset-inline: 0; bottom: 0; z-index: 1;
+  padding-block: 0 30px;
+}
+@media (min-width: 900px) { .breath figcaption { padding-block: 0 44px; } }
+
+.breath-k {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: #E7CFA4;                  /* pire cas mesuré 8,25:1 (320 px) — fixe, hors thème */
+  margin: 0 0 12px;
+}
+.breath-k::before { content: ""; width: 18px; height: 1px; background: currentColor; opacity: .6; }
+
+.breath-line {
+  font-family: 'Newsreader', ui-serif, Georgia, serif;
+  font-weight: 600; letter-spacing: -0.015em; line-height: 1.25;
+  font-size: clamp(20px, 3.2vw, 31px);
+  color: #FCF9F4;                  /* pire cas mesuré 14,6:1 (320 px) — fixe, hors thème */
+  max-width: 22em;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, .45);
+}
+/* Une phrase par bloc, chacune équilibrée sur ses propres lignes. Un <br> fixe
+   donnait « …chaque jour. Tes / repères suivent. » à 390 px — un mot orphelin
+   en fin de ligne. `balance` répartit et le problème ne dépend plus de la
+   largeur. Navigateurs sans `text-wrap` : rendu normal, simplement non équilibré. */
+.breath-line > span {
+  display: block;
+  text-wrap: balance;
+}
+
+/* ==========================================================================
+   Promesse + liste d'attente
+   ========================================================================== */
+.promise { background: var(--surface); border-block: 1px solid var(--hairline); }
+.promise-lines { display: grid; gap: 2px; margin-top: 34px; max-width: 52rem; }
+.promise-line {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: baseline;
+  padding: 15px 0; border-bottom: 1px solid var(--hairline);
+  font-size: clamp(16px, 2.2vw, 18px);
+}
+.promise-line:last-child { border-bottom: 0; }
+.promise-line span:first-child { color: var(--accent-ink); font-size: 12px; font-weight: 600; letter-spacing: .1em; }
+
+.waitlist { padding-block: 80px 96px; }
+.waitlist-inner { max-width: 40rem; }
+.wl-form { margin-top: 32px; display: grid; gap: 12px; }
+@media (min-width: 560px) { .wl-form { grid-template-columns: minmax(0, 1fr) auto; align-items: start; } }
+
+.wl-field { display: grid; gap: 6px; }
+.wl-field label { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-2); }
+.wl-form input[type="email"] {
+  width: 100%; padding: 15px 16px; font: inherit; font-size: 16px;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 13px;
+  transition: border-color .16s ease;
+}
+.wl-form input[type="email"]::placeholder { color: var(--text-3); }
+.wl-form input[type="email"]:hover { border-color: var(--text-3); }
+.wl-form .btn { align-self: end; height: 51px; }
+@media (max-width: 559px) { .wl-form .btn { width: 100%; } }
+
+.wl-msg {
+  margin-top: 16px; font-size: 14.5px; line-height: 1.55;
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 14px 16px; border-radius: 13px;
+  background: var(--surface-sunk);
+}
+.wl-msg[hidden] { display: none; }
+.wl-msg svg { flex: none; margin-top: 2px; color: var(--accent); }
+.wl-legal { margin-top: 16px; font-size: 13px; color: var(--text-2); }
+
+/* ---------- Pied de page ---------- */
+.site-footer { border-top: 1px solid var(--hairline); padding-block: 40px 48px; }
+.footer-inner { display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: center; }
+.footer-inner .brand { font-size: 18px; }
+.footer-meta { font-size: 13px; color: var(--text-2); margin-left: auto; }
+.footer-legal { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.footer-legal a { font-size: 13px; color: var(--text-2); text-decoration: none; }
+.footer-legal a:hover { color: var(--accent-ink); text-decoration: underline; }
+
+/* ---------- Apparition au défilement ---------- */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.reveal[data-shown="true"] { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}

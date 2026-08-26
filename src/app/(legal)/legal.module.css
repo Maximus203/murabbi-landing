@@ -1,0 +1,145 @@
+/*
+ * Styles des pages légales (confidentialité, CGU, suppression de compte).
+ * Repris tels quels de l'ancien confidentialite.html/cgu.html/
+ * suppression-compte.html — les trois avaient un bloc <style> identique.
+ *
+ * Scopé sous .legalRoot pour les sélecteurs d'élément bruts (a, h1, h2, p,
+ * li, strong) : globals.css (page d'accueil) définit DÉJÀ ces mêmes
+ * sélecteurs avec des valeurs différentes (ex. `a { color: inherit }` sur
+ * l'accueil vs `a { color: var(--accent-ink) }` ici). Le root layout
+ * Next.js reste monté sur toutes les routes — sans ce scope, les deux
+ * feuilles de style se disputeraient les mêmes sélecteurs selon l'ordre de
+ * chargement. Les classes (`.wrap`, `.card`, ...) n'ont pas ce problème :
+ * CSS Modules les renomme de façon unique, aucune collision possible même
+ * si le nom source est le même que sur l'accueil (ex. `.wrap`).
+ *
+ * Les tokens de couleur (--bg, --text, --accent-ink, ...) viennent tous de
+ * globals.css (root layout) — pas redéclarés ici, ce sont des custom
+ * properties globales par nature.
+ */
+
+.legalRoot a {
+  color: var(--accent-ink);
+}
+.legalRoot h1,
+.legalRoot h2 {
+  font-family: 'Newsreader', ui-serif, Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0;
+}
+.legalRoot p,
+.legalRoot li {
+  color: var(--text-2);
+}
+.legalRoot strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.legalRoot ul {
+  padding-left: 1.2em;
+  margin: 0;
+}
+.legalRoot li + li {
+  margin-top: 8px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+@media (min-width: 720px) {
+  .wrap {
+    padding-inline: 32px;
+  }
+}
+
+.siteHeader {
+  border-bottom: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px);
+}
+.siteHeader .wrap {
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: 'Newsreader', serif;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+.brand svg {
+  flex: none;
+}
+
+.main {
+  padding-block: 56px 96px;
+}
+.main .wrap > * + * {
+  margin-top: 28px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin: 0 0 12px;
+}
+.h1 {
+  font-size: clamp(28px, 5vw, 40px);
+}
+.h2 {
+  font-size: 21px;
+  margin-top: 40px;
+}
+.lead {
+  color: var(--text) !important;
+  font-size: 18px;
+}
+.meta {
+  font-size: 14px;
+  color: var(--text-3);
+  font-family: 'Geist Mono', monospace;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-top: 16px;
+}
+.rule {
+  height: 1px;
+  background: var(--hairline);
+  border: 0;
+  margin: 40px 0 0;
+}
+
+.siteFooter {
+  border-top: 1px solid var(--hairline);
+  padding-block: 32px;
+}
+.siteFooter .wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.siteFooter a {
+  color: var(--text-2);
+  font-size: 14px;
+}

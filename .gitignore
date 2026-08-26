@@ -1,9 +1,19 @@
-# sources lourdes de retravail — la page ne sert que les .webp
-img/*.jpg
-# images ecartees (parlement de Budapest / eglise) — conservees hors depot
-img/RECALE-*
-# sauvegardes locales
-*.avant-*
+# Next.js
+/.next/
+/out/
+next-env.d.ts
 
+# Dependances
+/node_modules/
+
+# Build / coverage
+*.tsbuildinfo
+
+# Vercel
 .vercel
+
+# Secrets locaux
 .env*
+
+# Sauvegardes locales
+*.avant-*

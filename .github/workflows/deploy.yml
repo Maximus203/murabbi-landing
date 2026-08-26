@@ -1,0 +1,73 @@
+name: Déploiement
+
+# Deploie sur Vercel a chaque push sur main — CLI Vercel + token dedie
+# (secrets VERCEL_TOKEN / VERCEL_ORG_ID / VERCEL_PROJECT_ID), pas
+# l'integration GitHub de Vercel : celle-ci n'est pas installee sur le
+# compte (elle accorderait un acces permanent au repo, ce que le PO a
+# explicitement refuse). Cette voie CLI contourne totalement ce blocage.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm typecheck
+
+      - run: pnpm lint
+
+      - name: Installer la CLI Vercel
+        run: pnpm dlx vercel@latest --version
+
+      # PR : preview. Push sur main : production. Les identifiants de
+      # projet/equipe viennent des secrets — jamais commits (.vercel/ est
+      # gitignore, cf. .gitignore).
+      - name: Pull des reglages du projet Vercel
+        run: pnpm dlx vercel pull --yes --environment=${{ github.event_name == 'pull_request' && 'preview' || 'production' }} --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Build
+        run: pnpm dlx vercel build ${{ github.event_name != 'pull_request' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Deployer
+        id: deploy
+        run: |
+          url=$(pnpm dlx vercel deploy --prebuilt ${{ github.event_name != 'pull_request' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Commenter la PR avec le lien de preview
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🔗 Preview déployée : ${{ steps.deploy.outputs.url }}`,
+            })

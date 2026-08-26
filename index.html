@@ -692,6 +692,9 @@ section { padding-block: 72px; }
 .footer-inner { display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: center; }
 .footer-inner .brand { font-size: 18px; }
 .footer-meta { font-size: 13px; color: var(--text-2); margin-left: auto; }
+.footer-legal { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.footer-legal a { font-size: 13px; color: var(--text-2); text-decoration: none; }
+.footer-legal a:hover { color: var(--accent-ink); text-decoration: underline; }
 
 /* ---------- Apparition au défilement ---------- */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
@@ -1382,6 +1385,11 @@ section { padding-block: 72px; }
       </svg>
       Murabbi
     </a>
+    <nav class="footer-legal" aria-label="Pages légales">
+      <a href="/confidentialite.html">Confidentialité</a>
+      <a href="/cgu.html">Conditions d'utilisation</a>
+      <a href="/suppression-compte.html">Supprimer mon compte</a>
+    </nav>
     <p class="footer-meta">
       Horaires calculés dans le navigateur (méthode Ligue Islamique Mondiale · Sobh −18°, Isha −17°).
     </p>

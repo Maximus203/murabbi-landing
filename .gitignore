@@ -4,3 +4,6 @@ img/*.jpg
 img/RECALE-*
 # sauvegardes locales
 *.avant-*
+
+.vercel
+.env*

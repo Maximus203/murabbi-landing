@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/murabbi-symbole.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<title>Supprimer ton compte Murabbi — Murabbi</title>
+<meta name="description" content="Comment demander la suppression de ton compte Murabbi et de tes données, depuis l'app ou par email.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#F5F2ED" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A1814" media="(prefers-color-scheme: dark)">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,600&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #F5F2ED; --surface: #FDFBF8; --surface-sunk: #EDE9E2;
+  --text: #1C1A16; --text-2: #6B6155; --text-3: #A89880;
+  --accent: #8B6F47; --accent-hover: #7A6240; --accent-ink: #7A6240; --on-accent: #FDFBF8;
+  --hairline: rgba(28, 26, 22, 0.08); --border: rgba(28, 26, 22, 0.16);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1A1814; --surface: #252220; --surface-sunk: #302D2A;
+    --text: #F0EDE8; --text-2: #A8998A; --text-3: #9A8B7A;
+    --accent: #A68655; --accent-hover: #8B6F47; --accent-ink: #A68655; --on-accent: #252220;
+    --hairline: rgba(240, 237, 232, 0.10); --border: rgba(240, 237, 232, 0.20);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1A1814; --surface: #252220; --surface-sunk: #302D2A;
+  --text: #F0EDE8; --text-2: #A8998A; --text-3: #9A8B7A;
+  --accent: #A68655; --accent-hover: #8B6F47; --accent-ink: #A68655; --on-accent: #252220;
+  --hairline: rgba(240, 237, 232, 0.10); --border: rgba(240, 237, 232, 0.20);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+}
+h1, h2, .serif {
+  font-family: 'Newsreader', ui-serif, Georgia, 'Times New Roman', serif;
+  font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; margin: 0;
+}
+a { color: var(--accent-ink); }
+.wrap { width: 100%; max-width: 720px; margin-inline: auto; padding-inline: 20px; }
+@media (min-width: 720px) { .wrap { padding-inline: 32px; } }
+
+.site-header {
+  border-bottom: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px);
+}
+.site-header .wrap { display: flex; align-items: center; height: 64px; }
+.brand {
+  display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+  font-family: 'Newsreader', serif; font-size: 21px; font-weight: 600; letter-spacing: -0.015em;
+}
+.brand svg { flex: none; }
+
+main { padding-block: 56px 96px; }
+main .wrap > * + * { margin-top: 28px; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent-ink); margin: 0 0 12px;
+}
+h1 { font-size: clamp(28px, 5vw, 40px); }
+h2 { font-size: 21px; margin-top: 40px; }
+p, li { color: var(--text-2); }
+p.lead { color: var(--text); font-size: 18px; }
+ul { padding-left: 1.2em; margin: 0; }
+li + li { margin-top: 8px; }
+strong { color: var(--text); font-weight: 600; }
+.meta { font-size: 14px; color: var(--text-3); font-family: 'Geist Mono', monospace; }
+.rule { height: 1px; background: var(--hairline); border: 0; margin: 40px 0 0; }
+footer.site-footer { border-top: 1px solid var(--hairline); padding-block: 32px; }
+footer.site-footer .wrap { display: flex; flex-direction: column; gap: 8px; }
+footer.site-footer a { color: var(--text-2); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Murabbi — accueil">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <circle cx="13" cy="13" r="11.25" stroke="currentColor" stroke-width="1.2" opacity=".28"/>
+        <path d="M13 1.75v22.5" stroke="currentColor" stroke-width="1.2" opacity=".18"/>
+        <path d="M2.6 18.2A11.25 11.25 0 0 1 23.4 18.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="13" cy="8.4" r="2.6" fill="currentColor"/>
+      </svg>
+      Murabbi
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="eyebrow">Compte</p>
+    <h1>Supprimer ton compte Murabbi</h1>
+    <p class="meta">Dernière mise à jour : 26 août 2026</p>
+
+    <p class="lead">
+      Tu peux supprimer ton compte Murabbi et les données qui y sont rattachées
+      à tout moment. Voici les deux façons de le faire, et ce qui se passe
+      exactement ensuite.
+    </p>
+
+    <h2>1. Depuis l'application (le plus rapide)</h2>
+    <p>
+      Ouvre Murabbi, puis&nbsp;: <strong>Réglages</strong> →
+      <strong>Compte</strong> → <strong>Supprimer mon compte</strong>.
+      Confirme, et la demande est enregistrée immédiatement.
+    </p>
+
+    <h2>2. Par email (si tu n'as plus accès à l'app)</h2>
+    <p>
+      Écris à
+      <a href="mailto:el.hadji.ahmadou.cherif.diouf@gmail.com?subject=Suppression%20de%20mon%20compte%20Murabbi">el.hadji.ahmadou.cherif.diouf@gmail.com</a>
+      depuis l'adresse email de ton compte, avec « Suppression de mon compte
+      Murabbi » en objet. La demande est traitée sous 7 jours ouvrés.
+    </p>
+
+    <h2>Ce qui est supprimé</h2>
+    <ul>
+      <li>Ton compte et tes informations personnelles (email, prénom, nom,
+        genre, date de naissance).</li>
+      <li>Ton journal d'habitudes, tes validations de prière et ta progression.</li>
+      <li>Ton appartenance à un cercle, ainsi que ton pseudo et ton niveau qui
+        y étaient visibles.</li>
+      <li>Le jeton de notification lié à tes appareils.</li>
+    </ul>
+    <p>
+      Ta donnée de pause menstruelle et tes coordonnées de localisation n'ont
+      jamais quitté ton téléphone&nbsp;: il n'y a rien à supprimer côté serveur.
+      Elles disparaissent quand tu désinstalles l'application. Voir la
+      <a href="/confidentialite.html">politique de confidentialité</a>.
+    </p>
+
+    <h2>Délai</h2>
+    <p>
+      Ton compte est <strong>désactivé immédiatement</strong> — tu ne peux plus
+      t'y connecter et tu disparais de ton cercle. Les données sont ensuite
+      <strong>définitivement effacées après 30 jours</strong>. Ce délai existe
+      pour te permettre d'annuler une suppression accidentelle&nbsp;: il te
+      suffit de te reconnecter avant son expiration. Passé ce délai,
+      l'effacement est réel et irréversible.
+    </p>
+    <p>
+      Aucune donnée n'est conservée au-delà, sauf obligation légale de
+      conservation qui s'imposerait à nous.
+    </p>
+
+    <hr class="rule">
+    <p><a href="/confidentialite.html">← Voir la politique de confidentialité</a></p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <a href="mailto:el.hadji.ahmadou.cherif.diouf@gmail.com">el.hadji.ahmadou.cherif.diouf@gmail.com</a>
+    <a href="/">← Retour à l'accueil</a>
+  </div>
+</footer>
+
+</body>
+</html>

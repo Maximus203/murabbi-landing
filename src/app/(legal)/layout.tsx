@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import styles from './legal.module.css'
 
 /**
@@ -14,7 +15,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
     <div className={styles.legalRoot}>
       <header className={styles.siteHeader}>
         <div className={styles.wrap}>
-          <a className={styles.brand} href="/" aria-label="Murabbi — accueil">
+          <Link className={styles.brand} href="/" aria-label="Murabbi — accueil">
             <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
               <circle cx="13" cy="13" r="11.25" stroke="currentColor" strokeWidth="1.2" opacity=".28" />
               <path d="M13 1.75v22.5" stroke="currentColor" strokeWidth="1.2" opacity=".18" />
@@ -27,7 +28,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
               <circle cx="13" cy="8.4" r="2.6" fill="currentColor" />
             </svg>
             Murabbi
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -38,7 +39,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
       <footer className={styles.siteFooter}>
         <div className={styles.wrap}>
           <a href="mailto:el.hadji.ahmadou.cherif.diouf@gmail.com">el.hadji.ahmadou.cherif.diouf@gmail.com</a>
-          <a href="/">← Retour à l&apos;accueil</a>
+          <Link href="/">← Retour à l&apos;accueil</Link>
         </div>
       </footer>
     </div>

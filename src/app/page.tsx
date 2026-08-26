@@ -1,3 +1,7 @@
+/* eslint-disable react/no-unescaped-entities -- markup converti mecaniquement
+   depuis l'ancien index.html (voir le commit de migration) : les apostrophes
+   du francais sont litterales et deja verifiees a l'affichage, pas des
+   fautes de frappe a corriger une par une. */
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { LandingScript } from '@/components/LandingScript'

@@ -45,16 +45,17 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Build
-        run: pnpm dlx vercel build ${{ github.event_name != 'pull_request' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
+      # Deploiement depuis les sources (pas --prebuilt) : le build tourne
+      # cote Vercel avec son runtime Next.js, qui sait gerer correctement
+      # l'export statique de routes nommees en ".html" (ex. /cgu.html).
+      # `vercel build` en local produit un dossier ET un fichier de meme nom
+      # pour ces routes (cache de prefetch RSC par segment, propre a Next 16)
+      # et plante avec une erreur EISDIR au moment de la copie — uniquement
+      # le runtime cloud de Vercel sait resoudre cette collision.
       - name: Deployer
         id: deploy
         run: |
-          url=$(pnpm dlx vercel deploy --prebuilt ${{ github.event_name != 'pull_request' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }})
+          url=$(pnpm dlx vercel deploy ${{ github.event_name != 'pull_request' && '--prod' || '' }} --token=${{ secrets.VERCEL_TOKEN }})
           echo "url=$url" >> "$GITHUB_OUTPUT"
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

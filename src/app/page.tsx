@@ -5,6 +5,7 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { LandingScript } from '@/components/LandingScript'
+import { PhoneShowcase } from '@/components/PhoneShowcase'
 
 export default function HomePage() {
   const engineCode = readFileSync(join(process.cwd(), 'src/landing-engine.js'), 'utf-8')
@@ -45,47 +46,19 @@ export default function HomePage() {
   <div className="wrap">
     <div className="hero-grid">
       <div>
-        <p className="eyebrow">Application mobile · bêta à venir</p>
+        <p className="eyebrow">Application mobile · test fermé</p>
         <h1>Ta journée a déjà un rythme.<br />Ton agenda <em>l'ignore.</em></h1>
         <p className="hero-sub">
-          Cinq repères découpent ta journée, et ils bougent chaque jour avec le soleil.
-          Murabbi accroche tes habitudes à ces repères plutôt qu'à des heures fixes —
-          puis recalcule tout, tous les matins, à ta place.
+          Murabbi accroche tes habitudes au rythme du soleil plutôt qu'à des heures
+          fixes — et recalcule tout, tous les matins, à ta place.
         </p>
         <div className="hero-cta">
           <a className="btn btn-primary" href="/testeurs">Devenir testeur</a>
           <a className="btn btn-ghost" href="#mecanisme">Voir le mécanisme</a>
         </div>
-        <p className="hero-note">
-          <span className="dot" aria-hidden="true"></span>
-          Les horaires ci-contre sont calculés en direct, dans ton navigateur.
-        </p>
       </div>
 
-      <div className="card today" id="today-card">
-        <div className="today-top">
-          <div>
-            <span className="today-label">Aujourd'hui</span>
-            <p className="today-date" id="today-date">—</p>
-          </div>
-          <label className="visually-hidden" htmlFor="city" style={{position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap'}}>Ville de référence</label>
-          <select className="city-select" id="city" defaultValue="dakar">
-            <option value="dakar">Dakar</option>
-            <option value="abidjan">Abidjan</option>
-            <option value="paris">Paris</option>
-            <option value="bruxelles">Bruxelles</option>
-            <option value="tunis">Tunis</option>
-            <option value="istanbul">Istanbul</option>
-            <option value="riyad">Riyad</option>
-          </select>
-        </div>
-
-        <div className="arc" id="arc" aria-hidden="true"></div>
-
-        <div className="anchors" id="anchors" role="list" aria-label="Repères de la journée"></div>
-
-        <p className="today-foot" id="today-foot">—</p>
-      </div>
+      <PhoneShowcase />
     </div>
   </div>
 </section>
@@ -99,11 +72,34 @@ export default function HomePage() {
       <p className="eyebrow">Le problème</p>
       <h2>Une alarme à 19 h 30 a tort la moitié de l'année.</h2>
       <p>
-        Un rappel fixe suppose que ta journée est fixe. Elle ne l'est pas : le coucher du
-        soleil se déplace de dizaines de minutes entre décembre et juin, et tous tes
-        repères avec lui. Voilà le décalage, tracé sur douze mois pour la ville que tu as
-        choisie.
+        Le coucher du soleil se déplace de dizaines de minutes entre décembre et juin —
+        et tous tes repères avec lui. Voilà ce que Murabbi calcule pour toi, maintenant.
       </p>
+    </div>
+
+    <div className="card today reveal" id="today-card" style={{maxWidth: '440px', marginTop: '32px'}}>
+      <div className="today-top">
+        <div>
+          <span className="today-label">Aujourd'hui</span>
+          <p className="today-date" id="today-date">—</p>
+        </div>
+        <label className="visually-hidden" htmlFor="city" style={{position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap'}}>Ville de référence</label>
+        <select className="city-select" id="city" defaultValue="dakar">
+          <option value="dakar">Dakar</option>
+          <option value="abidjan">Abidjan</option>
+          <option value="paris">Paris</option>
+          <option value="bruxelles">Bruxelles</option>
+          <option value="tunis">Tunis</option>
+          <option value="istanbul">Istanbul</option>
+          <option value="riyad">Riyad</option>
+        </select>
+      </div>
+
+      <div className="arc" id="arc" aria-hidden="true"></div>
+
+      <div className="anchors" id="anchors" role="list" aria-label="Repères de la journée"></div>
+
+      <p className="today-foot" id="today-foot">—</p>
     </div>
 
     <div className="drift reveal">
@@ -150,10 +146,9 @@ export default function HomePage() {
       <p className="eyebrow">Le mécanisme</p>
       <h2>Tu ne choisis pas une heure. Tu choisis un repère.</h2>
       <p>
-        Dans Murabbi, une habitude s'ancre : <em>après le Sobh</em>, <em>avant le
-        Maghrib</em>, <em>vingt minutes après l'Asr</em>. L'heure exacte, elle, se
-        recalcule chaque jour pour l'endroit où tu es. Compose un déclencheur ci-dessous
-        et regarde l'heure bouger toute seule.
+        <em>Après le Sobh</em>, <em>avant le Maghrib</em>, <em>vingt minutes après
+        l'Asr</em> — l'heure exacte se recalcule chaque jour, pour l'endroit où tu es.
+        Compose un déclencheur ci-dessous.
       </p>
     </div>
 
@@ -212,33 +207,14 @@ export default function HomePage() {
           <span className="point-num">1</span>
           <div>
             <h3>L'heure te suit, tu ne la suis pas</h3>
-            <p>
-              Tu déménages, tu voyages, la saison tourne : l'ancre ne change pas, l'heure
-              s'adapte. Tu n'auras jamais à rouvrir tes rappels pour les décaler de dix
-              minutes.
-            </p>
+            <p>Tu déménages, la saison tourne : l'ancre ne change pas, l'heure s'adapte seule.</p>
           </div>
         </div>
         <div className="point">
           <span className="point-num">2</span>
           <div>
-            <h3>Un déclencheur, pas une sonnerie de plus</h3>
-            <p>
-              Une habitude peut se déclencher sur un instant précis, ou sur une fenêtre —
-              entre le Sobh et le lever du soleil, par exemple. Dans une fenêtre, tu as le
-              temps de faire, pas seulement d'être interrompu.
-            </p>
-          </div>
-        </div>
-        <div className="point">
-          <span className="point-num">3</span>
-          <div>
-            <h3>Le calcul se fait sur ton téléphone</h3>
-            <p>
-              Les horaires sont calculés localement à partir de ta position, pas
-              téléchargés. L'application reste utile sans réseau — et n'a pas besoin
-              d'envoyer où tu te trouves pour savoir quand te rappeler quelque chose.
-            </p>
+            <h3>Calculé sur ton téléphone</h3>
+            <p>Rien n'est téléchargé ni envoyé : les horaires se calculent localement, même sans réseau.</p>
           </div>
         </div>
       </div>
@@ -255,97 +231,19 @@ export default function HomePage() {
       <p className="eyebrow">L'habitude</p>
       <h2>Aussi simple qu'une case à cocher. Aussi précise que nécessaire.</h2>
       <p>
-        La plupart des habitudes n'ont besoin que d'un nom et d'un rythme. Certaines
-        méritent plus. Plutôt que d'imposer un formulaire de dix champs à tout le monde,
-        Murabbi te demande d'abord de quoi <em>cette</em> habitude a besoin — et ne
-        t'affiche que ça.
+        Murabbi te demande d'abord de quoi <em>cette</em> habitude a besoin, et
+        n'affiche que ça — jamais un formulaire de dix champs par défaut.
       </p>
     </div>
 
-    <div className="caps">
-      <div className="card cap reveal">
-        <span className="cap-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 6.5 4.8 8.3 8 5.1M3 17.5l1.8 1.8L8 16.1M11.5 7h9.5M11.5 12h9.5M11.5 17h9.5"/>
-          </svg>
-        </span>
-        <div>
-          <h3>Sous-tâches</h3>
-          <p>Découper l'habitude en étapes à cocher, quand « fait » n'est pas un seul geste.</p>
-        </div>
-      </div>
-
-      <div className="card cap reveal">
-        <span className="cap-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 1.8M9.5 2.5h5"/>
-          </svg>
-        </span>
-        <div>
-          <h3>Durée d'exécution</h3>
-          <p>Le temps que ça prend réellement — pour que ton agenda cesse de mentir sur ta journée.</p>
-        </div>
-      </div>
-
-      <div className="card cap reveal">
-        <span className="cap-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M6 10a6 6 0 1 1 12 0c0 4 1.6 5.6 1.6 5.6H4.4S6 14 6 10ZM10 19a2 2 0 0 0 4 0"/>
-          </svg>
-        </span>
-        <div>
-          <h3>Déclencheur</h3>
-          <p>Le repère de la journée qui la lance, plutôt qu'une heure décidée une fois pour toutes.</p>
-        </div>
-      </div>
-
-      <div className="card cap reveal">
-        <span className="cap-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M4 8h13l-3-3M20 16H7l3 3"/>
-          </svg>
-        </span>
-        <div>
-          <h3>Répétitions</h3>
-          <p>Combien de fois la répéter à chaque occurrence, quand une seule ne suffit pas.</p>
-        </div>
-      </div>
-
-      <div className="card cap reveal">
-        <span className="cap-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 6.5S10 4.5 4.5 4.5v13C10 17.5 12 19.5 12 19.5s2-2 7.5-2v-13C14 4.5 12 6.5 12 6.5ZM12 6.5v13"/>
-          </svg>
-        </span>
-        <div>
-          <h3>Contenu pédagogique</h3>
-          <p>Un texte, des images ou une vidéo attachés à l'habitude — ce que tu y mets, toi.</p>
-        </div>
-      </div>
-
-      <div className="card cap reveal">
-        <span className="cap-icon" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3.5 8.5h3l1.6-2.4h7.8l1.6 2.4h3v10h-17v-10Z"/><circle cx="12" cy="13.2" r="3.2"/>
-          </svg>
-        </span>
-        <div>
-          <h3>Preuve de réalisation</h3>
-          <p>Ce qu'il faut fournir pour valider : une photo, un chiffre, une note. Tu fixes la barre.</p>
-        </div>
-      </div>
+    <div className="reveal" style={{marginTop: '28px', display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
+      <span className="chip" style={{cursor: 'default'}}>Sous-tâches</span>
+      <span className="chip" style={{cursor: 'default'}}>Durée d'exécution</span>
+      <span className="chip" style={{cursor: 'default'}}>Déclencheur</span>
+      <span className="chip" style={{cursor: 'default'}}>Répétitions</span>
+      <span className="chip" style={{cursor: 'default'}}>Contenu pédagogique</span>
+      <span className="chip" style={{cursor: 'default'}}>Preuve de réalisation</span>
     </div>
-
-    <p className="caps-foot reveal">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="9"/><path d="M12 16v-4.5M12 8.2h.01"/>
-      </svg>
-      <span>
-        Six capacités, cochées une par une. Une habitude « simple » n'en active aucune et
-        se crée en deux gestes ; une habitude exigeante peut les activer toutes. C'est la
-        même liste, jamais un mode payant séparé.
-      </span>
-    </p>
   </div>
 </section>
 
@@ -358,10 +256,8 @@ export default function HomePage() {
       <p className="eyebrow">Le cercle</p>
       <h2>Des proches qui te relèvent — uniquement là où tu leur as ouvert la porte.</h2>
       <p>
-        Se faire rappeler par quelqu'un fonctionne mieux qu'une notification. Mais on ne
-        donne pas à ses amis un droit de regard sur tout. Dans Murabbi, tu ouvres chaque
-        type de rappel séparément, et tu peux le refermer à tout moment. Essaie sur la
-        carte de droite.
+        Tu ouvres chaque type de rappel séparément, et tu le refermes quand tu veux.
+        Essaie sur la carte de droite.
       </p>
     </div>
 
@@ -375,12 +271,7 @@ export default function HomePage() {
           </span>
           <div>
             <h3>Le refus est dans le code, pas dans un réglage</h3>
-            <p>
-              Un rappel ne peut pas être fabriqué par l'application tant que la personne
-              concernée n'a pas ouvert ce type d'événement précis. Ce n'est pas une case
-              qu'un écran pourrait oublier de vérifier : rien d'autre, dans le programme,
-              n'a le droit d'en créer un.
-            </p>
+            <p>Rien ne peut créer un rappel tant que la personne n'a pas ouvert ce type d'événement précis.</p>
           </div>
         </div>
         <div className="point">
@@ -391,24 +282,7 @@ export default function HomePage() {
           </span>
           <div>
             <h3>Le motif ne dit jamais ce que tu as manqué</h3>
-            <p>
-              Ton cercle voit qu'une main est tendue, pas le détail de ta journée. Un
-              rappel reste une main tendue — pas un rapport d'inspection.
-            </p>
-          </div>
-        </div>
-        <div className="point">
-          <span className="point-num">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 13.5 9.5 18 19 6.5"/>
-            </svg>
-          </span>
-          <div>
-            <h3>Un classement entre gens qui se connaissent</h3>
-            <p>
-              Le cercle a son classement et ses paliers, mais il se joue entre personnes
-              qui se sont invitées. Pas un tableau mondial d'inconnus.
-            </p>
+            <p>Ton cercle voit qu'une main est tendue, pas le détail de ta journée.</p>
           </div>
         </div>
       </div>
@@ -464,83 +338,13 @@ export default function HomePage() {
 
 <hr className="rule" />
 
-{/* ====================== CALENDRIER ====================== */}
-<section id="calendrier">
-  <div className="wrap">
-    <div className="section-head reveal">
-      <p className="eyebrow">Le calendrier</p>
-      <h2>Un calendrier qui connaît déjà tes jours.</h2>
-      <p>
-        Ton agenda habituel voit un mardi 14. Murabbi voit aussi le quatorzième jour du
-        mois hégirien — et sait donc, sans que tu aies rien à noter, quels jours de ce
-        mois-ci comptent pour toi.
-      </p>
-    </div>
-
-    <div className="cal-grid">
-      <div className="card month reveal" aria-hidden="true">
-        <div className="month-head">
-          <h3>Un mois hégirien</h3>
-          <span>29 ou 30 jours</span>
-        </div>
-        <div className="dow">
-          <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
-        </div>
-        <div className="days" id="month-days"></div>
-        <div className="month-key">
-          <span className="key-item"><span className="key-swatch" style={{background: 'color-mix(in srgb, var(--accent) 20%, transparent)'}}></span> Jours blancs — 13, 14, 15</span>
-          <span className="key-item"><span className="key-swatch" style={{background: 'color-mix(in srgb, var(--accent) 7%, transparent)'}}></span> Vendredi</span>
-        </div>
-      </div>
-
-      <div className="cal-list reveal">
-        <div className="cal-item">
-          <h3>Les jours blancs, repérés d'office</h3>
-          <p>
-            Les treizième, quatorzième et quinzième jours de chaque mois hégirien
-            apparaissent seuls sur ton calendrier. Tu n'as pas à les calculer, ni à te
-            souvenir de les inscrire chaque mois.
-          </p>
-        </div>
-        <div className="cal-item">
-          <h3>Le vendredi tient sa place</h3>
-          <p>
-            La colonne du vendredi est marquée dans la grille, et le récapitulatif de
-            semaine s'y aligne — parce que ta semaine ne finit pas le dimanche soir.
-          </p>
-        </div>
-        <div className="cal-item">
-          <h3>Les deux dates, côte à côte</h3>
-          <p>
-            Grégorienne et hégirienne s'affichent ensemble, en haut de l'écran d'accueil.
-            Deux calendriers, une seule journée : la tienne.
-          </p>
-        </div>
-        <div className="cal-item">
-          <h3>Les fêtes arrivent sans surprise</h3>
-          <p>
-            Les Eid sont posés sur le calendrier à l'avance. Tu les vois venir de loin,
-            au lieu de les découvrir la veille.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr className="rule" />
-
 {/* ====================== PALIERS ====================== */}
 <section id="paliers">
   <div className="wrap">
     <div className="section-head reveal">
       <p className="eyebrow">La progression</p>
       <h2>Six paliers. Le dernier donne son nom à l'application.</h2>
-      <p>
-        Chaque acte tenu vaut des points, chaque palier relève l'objectif quotidien : plus
-        tu avances, plus on attend de toi. Le calibrage est volontairement lent — le
-        dernier palier se mérite en années, pas en semaines.
-      </p>
+      <p>Un calibrage volontairement lent — le dernier palier se mérite en années, pas en semaines.</p>
     </div>
 
     <div className="levels reveal">
@@ -576,11 +380,42 @@ export default function HomePage() {
           <p className="level-goal">Objectif 105 pts / jour</p>
         </div>
       </div>
-      <p className="levels-foot">
-        Au dernier palier, la formule change : tu guides désormais autant que tu
-        progresses. C'est de là que vient le nom de l'application — et c'est la seule
-        promesse qu'elle te fait sur la durée.
-      </p>
+      <p className="levels-foot">Au dernier palier, tu guides autant que tu progresses — d'où le nom de l'application.</p>
+    </div>
+  </div>
+</section>
+
+<hr className="rule" />
+
+{/* ====================== THÈMES ====================== */}
+<section id="themes">
+  <div className="wrap">
+    <div className="section-head reveal">
+      <p className="eyebrow">L'apparence</p>
+      <h2>Cinq ambiances. Trois intensités chacune.</h2>
+      <p>Classique, Rosé, Vert, Bleu, Noir &amp; blanc — chacune se décline en clair, sombre et très sombre.</p>
+    </div>
+    <div className="themes-row reveal">
+      <div className="theme-swatch">
+        <span className="theme-chip" style={{background: 'linear-gradient(135deg, #EEE8DC 50%, #7A6035 50%)'}}></span>
+        <span className="theme-name">Classique</span>
+      </div>
+      <div className="theme-swatch">
+        <span className="theme-chip" style={{background: 'linear-gradient(135deg, #F3F1F2 50%, #7D2143 50%)'}}></span>
+        <span className="theme-name">Rosé</span>
+      </div>
+      <div className="theme-swatch">
+        <span className="theme-chip" style={{background: 'linear-gradient(135deg, #F1F3F2 50%, #24663C 50%)'}}></span>
+        <span className="theme-name">Vert</span>
+      </div>
+      <div className="theme-swatch">
+        <span className="theme-chip" style={{background: 'linear-gradient(135deg, #1E252F 50%, #E4B558 50%)'}}></span>
+        <span className="theme-name">Bleu</span>
+      </div>
+      <div className="theme-swatch">
+        <span className="theme-chip" style={{background: 'linear-gradient(135deg, #EBEBEB 50%, #242424 50%)'}}></span>
+        <span className="theme-name">Noir &amp; blanc</span>
+      </div>
     </div>
   </div>
 </section>

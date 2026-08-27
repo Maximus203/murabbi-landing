@@ -480,46 +480,6 @@
   })();
 
   /* ======================================================================
-     10. Liste d'attente — pas de fausse confirmation
-     ====================================================================== */
-  const form = document.getElementById('wl-form');
-  const msg = document.getElementById('wl-msg');
-  const msgText = document.getElementById('wl-msg-text');
-  const emailInput = document.getElementById('wl-email');
-
-  function say(text) { msgText.textContent = text; msg.hidden = false; }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = emailInput.value.trim();
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-      say("Cette adresse ne semble pas valide — vérifie-la avant d'envoyer.");
-      emailInput.focus();
-      return;
-    }
-    const endpoint = form.getAttribute('data-endpoint');
-    if (!endpoint) {
-      // Aucun backend n'est branché : on le dit, plutôt que de faire croire
-      // que l'adresse a été enregistrée.
-      say("La collecte des inscriptions n'est pas encore ouverte : ton adresse ne serait "
-        + "enregistrée nulle part. Elle le sera au lancement de la bêta — repasse d'ici là.");
-      return;
-    }
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
-      if (!res.ok) throw new Error(String(res.status));
-      form.reset();
-      say("C'est noté. Tu recevras un message à l'ouverture de la bêta.");
-    } catch (_) {
-      say("L'envoi n'a pas abouti. Réessaie dans un instant.");
-    }
-  });
-
-  /* ======================================================================
      11. En-tête collant + apparitions
      ====================================================================== */
   const header = document.getElementById('header');

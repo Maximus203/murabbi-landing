@@ -33,8 +33,7 @@ export default function HomePage() {
           <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"/>
         </svg>
       </button>
-      <a className="btn btn-ghost btn-sm" href="/testeurs">Devenir testeur</a>
-      <a className="btn btn-primary btn-sm" href="#liste-attente">Liste d'attente</a>
+      <a className="btn btn-primary btn-sm" href="/testeurs">Devenir testeur</a>
     </div>
   </div>
 </header>
@@ -54,7 +53,7 @@ export default function HomePage() {
           puis recalcule tout, tous les matins, à ta place.
         </p>
         <div className="hero-cta">
-          <a className="btn btn-primary" href="#liste-attente">Rejoindre la liste d'attente</a>
+          <a className="btn btn-primary" href="/testeurs">Devenir testeur</a>
           <a className="btn btn-ghost" href="#mecanisme">Voir le mécanisme</a>
         </div>
         <p className="hero-note">
@@ -631,44 +630,19 @@ export default function HomePage() {
 */}
 
 {/* ====================== LISTE D'ATTENTE ====================== */}
-<section className="waitlist" id="liste-attente">
+<section className="waitlist" id="devenir-testeur">
   <div className="wrap">
     <div className="waitlist-inner reveal">
       <p className="eyebrow">La suite</p>
       <h2 style={{fontSize: 'clamp(28px,4.4vw,40px)'}}>L'application n'est pas encore publiée.</h2>
       <p style={{marginTop: '18px', fontSize: '17px', color: 'var(--text-2)'}}>
-        Murabbi est en construction. Laisse ton adresse : tu seras prévenu à l'ouverture
-        de la bêta, et tu recevras l'accès avant la mise en ligne publique. Rien d'autre.
+        Murabbi est en test fermé avant sa sortie publique. Deviens testeur pour
+        l&apos;installer en avant-première sur Android ou iPhone, et pour peser
+        directement sur ce qu&apos;elle devient.
       </p>
-
-      {/*
-        FORMULAIRE NON RELIÉ — action à brancher côté PO.
-        Aucun backend n'est câblé : le champ `data-endpoint` de <form> est vide, et le
-        script affiche un message honnête plutôt qu'une fausse confirmation.
-        Pour l'activer : renseigner data-endpoint avec une URL qui accepte un POST
-        JSON {email}, et vérifier CORS + double opt-in + mention RGPD.
-      */}
-      <form className="wl-form" id="wl-form" data-endpoint="" noValidate>
-        <div className="wl-field">
-          <label htmlFor="wl-email">Adresse e-mail</label>
-          <input type="email" id="wl-email" name="email" inputMode="email"
-                 autoComplete="email" placeholder="toi@exemple.com" required
-                 aria-describedby="wl-msg" />
-        </div>
-        <button className="btn btn-primary" type="submit">Me prévenir</button>
-      </form>
-
-      <p className="wl-msg" id="wl-msg" hidden>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="9"/><path d="M12 16v-4.5M12 8.2h.01"/>
-        </svg>
-        <span id="wl-msg-text"></span>
-      </p>
-
-      <p className="wl-legal">
-        Une seule adresse, aucun partage à un tiers, désinscription en un clic dans
-        chaque message.
-      </p>
+      <div style={{marginTop: '28px'}}>
+        <a className="btn btn-primary" href="/testeurs">Devenir testeur</a>
+      </div>
     </div>
   </div>
 </section>

@@ -8,14 +8,36 @@ type Status = 'idle' | 'submitting' | 'success' | 'error'
 
 const MESSAGE_MIN = 10
 const MESSAGE_MAX = 2000
+const CATEGORY_MAX = 60
+const OTHER_CATEGORY = '__autre__'
+
+// Categories systeme du catalogue (public.categories where is_system = true).
+// Liste statique : coherente avec l'architecture zero-backend du site, et ces
+// categories ne changent pas au point de justifier un appel reseau de plus.
+const SYSTEM_CATEGORIES = [
+  'Mental',
+  'Nutrition',
+  'Religion',
+  'Santé',
+  'Social',
+  'Sommeil',
+  'Spiritualité',
+  'Sport',
+  'Suivi',
+]
 
 export function SuggestionForm() {
   const [kind, setKind] = useState<'habit' | 'improvement'>('habit')
   const [message, setMessage] = useState('')
+  const [category, setCategory] = useState('')
+  const [customCategory, setCustomCategory] = useState('')
   const [email, setEmail] = useState('')
   const [website, setWebsite] = useState('') // piege a bots : jamais rempli par une personne
   const [status, setStatus] = useState<Status>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+
+  const isOtherCategory = category === OTHER_CATEGORY
+  const resolvedCategory = (isOtherCategory ? customCategory : category).trim()
 
   const messageLength = message.trim().length
   const messageTooShort = messageLength > 0 && messageLength < MESSAGE_MIN
@@ -42,6 +64,7 @@ export function SuggestionForm() {
     const { error } = await supabase.from('landing_suggestions').insert({
       kind,
       message: message.trim(),
+      category: kind === 'habit' && resolvedCategory ? resolvedCategory : null,
       email: email.trim() || null,
     })
 
@@ -53,6 +76,8 @@ export function SuggestionForm() {
 
     setStatus('success')
     setMessage('')
+    setCategory('')
+    setCustomCategory('')
     setEmail('')
   }
 
@@ -95,6 +120,57 @@ export function SuggestionForm() {
             </label>
           </div>
         </div>
+
+        {kind === 'habit' && (
+          <div style={{ display: 'grid', gap: 8 }}>
+            <label htmlFor="suggestion-category" style={{ fontSize: 14, fontWeight: 600 }}>
+              Catégorie <span style={{ fontWeight: 400, color: 'var(--text-3)' }}>(facultatif)</span>
+            </label>
+            <select
+              id="suggestion-category"
+              name="category"
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+              style={{
+                width: '100%',
+                padding: '12px 14px',
+                borderRadius: 10,
+                border: '1px solid var(--border)',
+                background: 'var(--bg)',
+                color: 'var(--text)',
+                font: 'inherit',
+              }}
+            >
+              <option value="">Choisis une catégorie…</option>
+              {SYSTEM_CATEGORIES.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+              <option value={OTHER_CATEGORY}>Autre (précise)</option>
+            </select>
+            {isOtherCategory && (
+              <input
+                id="suggestion-category-custom"
+                name="customCategory"
+                type="text"
+                maxLength={CATEGORY_MAX}
+                value={customCategory}
+                onChange={(event) => setCustomCategory(event.target.value)}
+                placeholder="Nom de la catégorie que tu proposes"
+                style={{
+                  width: '100%',
+                  padding: '12px 14px',
+                  borderRadius: 10,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg)',
+                  color: 'var(--text)',
+                  font: 'inherit',
+                }}
+              />
+            )}
+          </div>
+        )}
 
         <div style={{ display: 'grid', gap: 8 }}>
           <label htmlFor="suggestion-message" style={{ fontSize: 14, fontWeight: 600 }}>

@@ -33,6 +33,7 @@ export default function HomePage() {
           <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"/>
         </svg>
       </button>
+      <a className="btn btn-ghost btn-sm" href="/testeurs">Devenir testeur</a>
       <a className="btn btn-primary btn-sm" href="#liste-attente">Liste d'attente</a>
     </div>
   </div>
@@ -684,6 +685,10 @@ export default function HomePage() {
       </svg>
       Murabbi
     </a>
+    <nav className="footer-legal" aria-label="Pages du site">
+      <a href="/testeurs">Devenir testeur</a>
+      <a href="/suggestions">Suggestions</a>
+    </nav>
     <nav className="footer-legal" aria-label="Pages légales">
       <a href="/confidentialite.html">Confidentialité</a>
       <a href="/cgu.html">Conditions d'utilisation</a>

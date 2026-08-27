@@ -18,7 +18,13 @@
  * properties globales par nature.
  */
 
-.legalRoot a {
+/* :not(:global(.btn)) : les boutons (.btn-primary, .btn-ghost) posent deja
+   leur propre couleur de texte via globals.css (ex. --on-accent, choisi pour
+   contraster avec leur fond) -- sans cette exclusion, cette regle plus
+   specifique (classe + element) l'emporte sur `.btn-primary { color: ... }`
+   (classe seule) et, en theme sombre, --accent-ink vaut exactement --accent :
+   le texte du bouton devient invisible sur son propre fond. */
+.legalRoot a:not(:global(.btn)) {
   color: var(--accent-ink);
 }
 .legalRoot h1,

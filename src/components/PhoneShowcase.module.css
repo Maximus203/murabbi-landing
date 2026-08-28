@@ -1,23 +1,19 @@
 /*
- * Téléphone 3D — vraie géométrie, pas une carte plate qui penche.
- * `.box` est un cube CSS (transform-style: preserve-3d) construit de 6 faces
- * positionnées dans l'espace via rotateX/rotateY + translateZ : face avant
- * (écran), face arrière, deux tranches verticales, deux tranches
- * horizontales. En pivotant, une vraie épaisseur devient visible — c'est
- * cette géométrie, pas l'angle de vue, qui vend l'effet 3D.
- *
- * --w / --h / --d (largeur / hauteur / épaisseur) sont posées une fois sur
- * `.rig` et réutilisées en calc() par chaque face : une seule source de
- * vérité pour les six positionnements.
+ * Téléphone — traité comme un mockup pré-rendu, pas comme une experimentation
+ * 3D en direct : UN seul angle fixe et soigné (pas de rotation au pointeur),
+ * face avant + tranche droite uniquement (transform-style: preserve-3d,
+ * translateZ) -- assez pour lire une vraie epaisseur sans la complexite
+ * (ni le risque de defaut visuel) d'un cube a six faces.
  */
 
 .stage {
-  /* Colonne unique, centree : le telephone domine en haut, les controles
-     compacts suivent en dessous. Pense pour tenir dans une colonne de heros
-     (moitie de page), pas pour se re-scinder en deux colonnes internes. */
-  --w: clamp(200px, 19vw, 260px);
+  --w: clamp(210px, 22vw, 272px);
   --h: calc(var(--w) * 2.2222);
-  --d: calc(var(--w) * 0.095);
+  --d: calc(var(--w) * 0.09);
+  /* Angle fixe, choisi une fois -- le meme que verrait un vrai mockup produit
+     (leger tiers-face, jamais de face pleine ni de profil). */
+  --ry: -18deg;
+  --rx: 4deg;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,25 +63,17 @@
   50% { transform: translateY(-9px); }
 }
 
-.box {
+.card {
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform .55s cubic-bezier(.16,1,.3,1);
-  will-change: transform;
-}
-@media (prefers-reduced-motion: reduce) {
-  .box { transition: none; }
-}
-
-.face {
-  position: absolute;
-  backface-visibility: hidden;
+  transform: rotateY(var(--ry)) rotateX(var(--rx));
 }
 
 /* ---- Face avant : bezel + écran ---- */
-.front {
+.frame {
+  position: absolute;
   inset: 0;
   transform: translateZ(calc(var(--d) / 2));
   border-radius: 30px;
@@ -93,11 +81,12 @@
   padding: 7px;
   box-shadow:
     0 1px 0 rgba(255,255,255,.12) inset,
-    0 0 0 1px rgba(0,0,0,.6);
+    0 0 0 1px rgba(0,0,0,.6),
+    0 30px 60px -20px rgba(0,0,0,.55);
 }
-.front::before {
-  /* Surbrillance nette (pas un simple degrade doux) sur l'arete gauche du
-     bezel, cote qui recoit la lumiere vu l'angle de rotation par defaut. */
+.frame::before {
+  /* Surbrillance nette sur l'arete gauche du bezel, cote qui recoit la
+     lumiere vu l'angle fixe (--ry negatif = penche vers la droite). */
   content: "";
   position: absolute;
   inset: 0;
@@ -156,44 +145,19 @@
   z-index: 3;
 }
 
-/* ---- Face arrière ---- */
-.back {
-  inset: 0;
-  transform: translateZ(calc(var(--d) / -2)) rotateY(180deg);
-  border-radius: 30px;
-  background: linear-gradient(150deg, #2c2a27 0%, #16140f 55%, #050403 100%);
-}
-.back::after {
-  content: "";
+/* ---- Tranche droite : seule face visible sous cet angle fixe ---- */
+.edge {
   position: absolute;
-  top: 42%;
-  left: 50%;
-  width: 40%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(255,255,255,.05), transparent 70%);
-  border-radius: 50%;
-}
-
-/* ---- Tranches verticales (gauche / droite) ---- */
-.edgeRight,
-.edgeLeft {
   top: 0;
+  right: 0;
   width: var(--d);
   height: 100%;
-  background: linear-gradient(90deg, #050403 0%, #6b655b 44%, #8a8375 50%, #6b655b 56%, #050403 100%);
-}
-.edgeRight {
-  right: 0;
+  border-radius: 0 30px 30px 0;
   transform-origin: right center;
   transform: rotateY(90deg) translateZ(calc(var(--d) / 2));
+  background: linear-gradient(90deg, #050403 0%, #6b655b 44%, #8a8375 50%, #6b655b 56%, #050403 100%);
 }
-.edgeLeft {
-  left: 0;
-  transform-origin: left center;
-  transform: rotateY(-90deg) translateZ(calc(var(--d) / 2));
-}
-.edgeRight::before {
+.edge::before {
   /* Bouton d'alimentation */
   content: "";
   position: absolute;
@@ -204,7 +168,7 @@
   background: linear-gradient(90deg, #171513, #5a544c 50%, #171513);
   border-radius: 2px;
 }
-.edgeRight::after {
+.edge::after {
   /* Volume */
   content: "";
   position: absolute;
@@ -214,37 +178,6 @@
   height: 10%;
   background: linear-gradient(90deg, #171513, #5a544c 50%, #171513);
   border-radius: 2px;
-}
-
-/* ---- Tranches horizontales (haut / bas) ---- */
-.edgeTop,
-.edgeBottom {
-  left: 0;
-  width: 100%;
-  height: var(--d);
-  background: linear-gradient(180deg, #050403 0%, #6b655b 44%, #8a8375 50%, #6b655b 56%, #050403 100%);
-}
-.edgeTop {
-  top: 0;
-  transform-origin: top center;
-  transform: rotateX(90deg) translateZ(calc(var(--d) / 2));
-}
-.edgeBottom {
-  bottom: 0;
-  transform-origin: bottom center;
-  transform: rotateX(-90deg) translateZ(calc(var(--d) / 2));
-}
-.edgeBottom::before {
-  /* Haut-parleur / USB-C, cote purement decorative */
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 22%;
-  height: 24%;
-  transform: translate(-50%, -50%);
-  background: #0a0908;
-  border-radius: 3px;
 }
 
 .stageInfo {

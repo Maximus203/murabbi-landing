@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type PointerEvent, type SyntheticEvent } from 'react'
+import { useEffect, useRef, useState, type SyntheticEvent } from 'react'
 import styles from './PhoneShowcase.module.css'
 
 type ScreenId = 'accueil' | 'habitudes' | 'catalogue' | 'calendrier'
@@ -56,9 +56,6 @@ const THEMES: ThemeMeta[] = [
   { id: 'monochrome', label: 'Noir & blanc', swatch: 'linear-gradient(135deg, #EBEBEB 50%, #242424 50%)' },
 ]
 
-const REST_ROTATION = { x: 6, y: -22 }
-const MAX_TILT = 14
-
 function screenSrc(theme: ThemeId, screen: ScreenId) {
   return `/img/screens/${theme}-${screen}.webp`
 }
@@ -73,8 +70,6 @@ function handleImageFallback(event: SyntheticEvent<HTMLImageElement>, screen: Sc
 export function PhoneShowcase() {
   const [activeScreen, setActiveScreen] = useState(0)
   const [activeTheme, setActiveTheme] = useState<ThemeId>('classic')
-  const [rotation, setRotation] = useState(REST_ROTATION)
-  const stageRef = useRef<HTMLDivElement>(null)
   const reducedMotionRef = useRef(false)
 
   useEffect(() => {
@@ -89,44 +84,17 @@ export function PhoneShowcase() {
     return () => clearInterval(timer)
   }, [])
 
-  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
-    if (reducedMotionRef.current || !stageRef.current) return
-    const rect = stageRef.current.getBoundingClientRect()
-    const px = (event.clientX - rect.left) / rect.width - 0.5
-    const py = (event.clientY - rect.top) / rect.height - 0.5
-    setRotation({
-      x: REST_ROTATION.x - py * MAX_TILT * 2,
-      y: REST_ROTATION.y + px * MAX_TILT * 2,
-    })
-  }
-
-  function handlePointerLeave() {
-    setRotation(REST_ROTATION)
-  }
-
   const current = SCREENS[activeScreen]
 
   return (
     <div className={styles.stage}>
-      <div
-        ref={stageRef}
-        className={styles.stageVisual}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
-      >
+      <div className={styles.stageVisual}>
         <div className={styles.stageGlow} aria-hidden="true" />
         <div className={styles.groundShadow} aria-hidden="true" />
         <div className={styles.rig}>
-          <div
-            className={styles.box}
-            style={{ transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)` }}
-          >
-            <div className={`${styles.face} ${styles.edgeBottom}`} aria-hidden="true" />
-            <div className={`${styles.face} ${styles.edgeTop}`} aria-hidden="true" />
-            <div className={`${styles.face} ${styles.edgeLeft}`} aria-hidden="true" />
-            <div className={`${styles.face} ${styles.edgeRight}`} aria-hidden="true" />
-            <div className={`${styles.face} ${styles.back}`} aria-hidden="true" />
-            <div className={`${styles.face} ${styles.front}`}>
+          <div className={styles.card}>
+            <div className={styles.edge} aria-hidden="true" />
+            <div className={styles.frame}>
               <div className={styles.screen}>
                 <div className={styles.notch} aria-hidden="true" />
                 {SCREENS.map((screen, index) => (

@@ -94,6 +94,7 @@ export function PhoneShowcase() {
         <div className={styles.rig}>
           <div className={styles.card}>
             <div className={styles.edge} aria-hidden="true" />
+            <div className={styles.edgeBottom} aria-hidden="true" />
             <div className={styles.frame}>
               <div className={styles.screen}>
                 <div className={styles.notch} aria-hidden="true" />

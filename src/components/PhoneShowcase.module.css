@@ -6,7 +6,7 @@
  */
 
 .stage {
-  --w: clamp(230px, 24vw, 300px);
+  --w: clamp(250px, 26vw, 320px);
   display: flex;
   flex-direction: column;
   align-items: center;

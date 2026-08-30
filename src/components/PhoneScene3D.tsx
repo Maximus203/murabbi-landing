@@ -19,7 +19,7 @@ type Props = {
 // seul point de vue soigne, pas de rotation au pointeur.
 const CAMERA_POSITION: [number, number, number] = [1.25, 0.51, 2.67]
 const CAMERA_TARGET: [number, number, number] = [0, 0.04, 0]
-const TARGET_HEIGHT = 0.85
+const TARGET_HEIGHT = 1.05
 
 const textureCache = new Map<string, THREE.Texture>()
 
@@ -62,12 +62,14 @@ function useScreenTexture(src: string, fallbackSrc: string) {
 let cachedModel: THREE.Group | null = null
 let modelPromise: Promise<THREE.Group> | null = null
 
+// "Smartphone" par smallbigsquare (poly.pizza, licence CC0) -- silhouette
+// bord a bord, sans bouton physique, plus proche d'un smartphone actuel.
 function loadPhoneModel(): Promise<THREE.Group> {
   if (cachedModel) return Promise.resolve(cachedModel)
   if (!modelPromise) {
     modelPromise = new Promise((resolve, reject) => {
       new GLTFLoader().load(
-        '/models/phone.glb',
+        '/models/smartphone.glb',
         (gltf) => {
           cachedModel = gltf.scene
           resolve(gltf.scene)
@@ -82,15 +84,14 @@ function loadPhoneModel(): Promise<THREE.Group> {
 
 type ScreenRect = { width: number; height: number; centerX: number; centerY: number; z: number }
 
-// Le modele "Phone" (Quaternius, poly.pizza, CC0) exporte 3 sous-maillages
-// pour ses 3 materiaux (White/Grey/Black, dans cet ordre). Le 3e (Black) est
-// l'ecran -- confirme via inspection du GLB. Le modele est deja bien oriente
-// tel quel (Y = hauteur, ecran face a +Z), aucune rotation necessaire.
-const SCREEN_MESH_NAME = 'Phone_3'
-
 function buildPhoneGroup(source: THREE.Object3D): { group: THREE.Group; screenRect: ScreenRect } {
   const group = new THREE.Group()
   const model = source.clone(true)
+
+  // Ce modele est authore a plat (longueur sur Z, epaisseur sur Y) -- on le
+  // redresse pour que la longueur devienne la hauteur (Y) et l'epaisseur
+  // fasse face a la camera (Z).
+  model.rotation.set(-Math.PI / 2, 0, 0)
   model.updateMatrixWorld(true)
 
   const box = new THREE.Box3().setFromObject(model)
@@ -106,18 +107,15 @@ function buildPhoneGroup(source: THREE.Object3D): { group: THREE.Group; screenRe
 
   group.add(model)
 
-  let screenMesh: THREE.Mesh | null = null
-  model.traverse((c) => {
-    if (c instanceof THREE.Mesh && c.name === SCREEN_MESH_NAME) screenMesh = c
-  })
-
-  const screenBox = screenMesh ? new THREE.Box3().setFromObject(screenMesh) : box
+  const screenBox = new THREE.Box3().setFromObject(model)
   const screenSize = new THREE.Vector3()
   screenBox.getSize(screenSize)
   const screenCenter = new THREE.Vector3()
   screenBox.getCenter(screenCenter)
 
-  // Marge pour rester a l'interieur du biseau visible autour de l'ecran.
+  // Marge pour rester a l'interieur du biseau visible autour de l'ecran --
+  // ce modele n'a pas de sous-maillage ecran dedie (mesh unique, materiau
+  // partage), la marge s'applique donc a la face entiere.
   const inset = 0.96
 
   return {
@@ -212,7 +210,7 @@ export function PhoneScene3D({ screenSrc, fallbackSrc, alt }: Props) {
         <FloatingRig>
           <PhoneModel texture={texture} />
         </FloatingRig>
-        <ContactShadows position={[0, -0.44, 0]} opacity={0.4} scale={1.5} blur={2.2} far={0.9} />
+        <ContactShadows position={[0, -0.56, 0]} opacity={0.4} scale={1.8} blur={2.2} far={1.1} />
       </Canvas>
     </div>
   )

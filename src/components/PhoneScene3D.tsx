@@ -19,24 +19,48 @@ type Props = {
 // seul point de vue soigne, pas de rotation au pointeur.
 const CAMERA_POSITION: [number, number, number] = [1.25, 0.51, 2.67]
 const CAMERA_TARGET: [number, number, number] = [0, 0.04, 0]
-const TARGET_HEIGHT = 1.05
+const TARGET_HEIGHT = 1.2
 
 const textureCache = new Map<string, THREE.Texture>()
+
+// Les captures sont des rectangles bruts (le systeme d'exploitation capture
+// un buffer rectangulaire, jamais les coins arrondis physiques de l'ecran).
+// On redessine l'image sur un canvas avec un clip arrondi pour que la
+// texture epouse vraiment la forme d'un ecran de telephone -- sans ça,
+// coller l'image telle quelle donne un rectangle plat, pas un ecran.
+function drawRoundedImage(img: HTMLImageElement): HTMLCanvasElement {
+  const canvas = document.createElement('canvas')
+  canvas.width = img.naturalWidth
+  canvas.height = img.naturalHeight
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return canvas
+  const radius = Math.min(canvas.width, canvas.height) * 0.065
+  ctx.beginPath()
+  ctx.moveTo(radius, 0)
+  ctx.arcTo(canvas.width, 0, canvas.width, canvas.height, radius)
+  ctx.arcTo(canvas.width, canvas.height, 0, canvas.height, radius)
+  ctx.arcTo(0, canvas.height, 0, 0, radius)
+  ctx.arcTo(0, 0, canvas.width, 0, radius)
+  ctx.closePath()
+  ctx.clip()
+  ctx.drawImage(img, 0, 0)
+  return canvas
+}
 
 function loadTexture(src: string): Promise<THREE.Texture> {
   const cached = textureCache.get(src)
   if (cached) return Promise.resolve(cached)
   return new Promise((resolve, reject) => {
-    new THREE.TextureLoader().load(
-      src,
-      (tex) => {
-        tex.colorSpace = THREE.SRGBColorSpace
-        textureCache.set(src, tex)
-        resolve(tex)
-      },
-      undefined,
-      reject,
-    )
+    const img = new Image()
+    img.crossOrigin = 'anonymous'
+    img.onload = () => {
+      const tex = new THREE.CanvasTexture(drawRoundedImage(img))
+      tex.colorSpace = THREE.SRGBColorSpace
+      textureCache.set(src, tex)
+      resolve(tex)
+    }
+    img.onerror = reject
+    img.src = src
   })
 }
 
@@ -166,7 +190,7 @@ function PhoneModel({ texture }: { texture: THREE.Texture | null }) {
       {texture && (
         <mesh position={[built.screenRect.centerX, built.screenRect.centerY, built.screenRect.z]}>
           <planeGeometry args={[built.screenRect.width, built.screenRect.height]} />
-          <meshBasicMaterial map={texture} toneMapped={false} />
+          <meshBasicMaterial map={texture} toneMapped={false} transparent />
         </mesh>
       )}
     </group>
@@ -210,7 +234,7 @@ export function PhoneScene3D({ screenSrc, fallbackSrc, alt }: Props) {
         <FloatingRig>
           <PhoneModel texture={texture} />
         </FloatingRig>
-        <ContactShadows position={[0, -0.56, 0]} opacity={0.4} scale={1.8} blur={2.2} far={1.1} />
+        <ContactShadows position={[0, -0.64, 0]} opacity={0.4} scale={2} blur={2.2} far={1.2} />
       </Canvas>
     </div>
   )

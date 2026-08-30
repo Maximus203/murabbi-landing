@@ -1,7 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState, type SyntheticEvent } from 'react'
+import dynamic from 'next/dynamic'
+import { useEffect, useRef, useState } from 'react'
 import styles from './PhoneShowcase.module.css'
+
+const PhoneScene3D = dynamic(() => import('./PhoneScene3D').then((m) => m.PhoneScene3D), {
+  ssr: false,
+  loading: () => <div className={styles.scenePlaceholder} aria-hidden="true" />,
+})
 
 type ScreenId = 'accueil' | 'habitudes' | 'catalogue' | 'calendrier'
 type ThemeId = 'classic' | 'rose' | 'green' | 'blue' | 'monochrome'
@@ -60,13 +66,6 @@ function screenSrc(theme: ThemeId, screen: ScreenId) {
   return `/img/screens/${theme}-${screen}.webp`
 }
 
-function handleImageFallback(event: SyntheticEvent<HTMLImageElement>, screen: ScreenId) {
-  const img = event.currentTarget
-  const fallback = screenSrc('classic', screen)
-  if (img.src.endsWith(fallback)) return
-  img.src = fallback
-}
-
 export function PhoneShowcase() {
   const [activeScreen, setActiveScreen] = useState(0)
   const [activeTheme, setActiveTheme] = useState<ThemeId>('classic')
@@ -90,28 +89,12 @@ export function PhoneShowcase() {
     <div className={styles.stage}>
       <div className={styles.stageVisual}>
         <div className={styles.stageGlow} aria-hidden="true" />
-        <div className={styles.groundShadow} aria-hidden="true" />
-        <div className={styles.rig}>
-          <div className={styles.card}>
-            <div className={styles.edge} aria-hidden="true" />
-            <div className={styles.edgeBottom} aria-hidden="true" />
-            <div className={styles.frame}>
-              <div className={styles.screen}>
-                <div className={styles.notch} aria-hidden="true" />
-                {SCREENS.map((screen, index) => (
-                  <img
-                    key={screen.id}
-                    src={screenSrc(activeTheme, screen.id)}
-                    alt={screen.title}
-                    data-active={index === activeScreen}
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    onError={(event) => handleImageFallback(event, screen.id)}
-                  />
-                ))}
-                <div className={styles.sheen} aria-hidden="true" />
-              </div>
-            </div>
-          </div>
+        <div className={styles.canvasWrap}>
+          <PhoneScene3D
+            screenSrc={screenSrc(activeTheme, current.id)}
+            fallbackSrc={screenSrc('classic', current.id)}
+            alt={current.title}
+          />
         </div>
       </div>
 

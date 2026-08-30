@@ -1,21 +1,12 @@
 /*
- * Téléphone — traité comme un mockup pré-rendu, pas comme une experimentation
- * 3D en direct : UN seul angle fixe et soigné (pas de rotation au pointeur),
- * face avant + tranche droite uniquement (transform-style: preserve-3d,
- * translateZ) -- assez pour lire une vraie epaisseur sans la complexite
- * (ni le risque de defaut visuel) d'un cube a six faces.
+ * Téléphone — vrai modèle 3D (Three.js / react-three-fiber) sur un canvas
+ * WebGL, chargé côté client uniquement. Caméra fixe, un seul angle soigné --
+ * pas de rotation au pointeur -- l'écran de l'appli est plaqué en texture
+ * sur l'écran du modèle.
  */
 
 .stage {
-  --w: clamp(210px, 22vw, 272px);
-  --h: calc(var(--w) * 2.2222);
-  --d: calc(var(--w) * 0.15);
-  /* Angle fixe, choisi une fois -- le meme que verrait un vrai mockup produit
-     (leger tiers-face, jamais de face pleine ni de profil). Rotation + perspective
-     assez marquees pour que l'ecran lui-meme se deforme en trapeze -- c'est ce
-     foreshortening, pas seulement la tranche, qui vend le volume. */
-  --ry: -30deg;
-  --rx: 13deg;
+  --w: clamp(230px, 24vw, 300px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,10 +16,9 @@
 
 .stageVisual {
   position: relative;
-  perspective: 950px;
   display: flex;
   justify-content: center;
-  padding-block: 20px 40px;
+  padding-block: 12px 32px;
 }
 
 .stageGlow {
@@ -39,174 +29,15 @@
   pointer-events: none;
 }
 
-.groundShadow {
-  position: absolute;
-  left: 50%;
-  bottom: 6px;
-  width: calc(var(--w) * 1.25);
-  height: 30px;
-  transform: translateX(-50%);
-  background: radial-gradient(closest-side, rgba(0,0,0,.5), transparent 72%);
-  filter: blur(3px);
-  pointer-events: none;
-}
-
-.rig {
+.canvasWrap {
   position: relative;
   width: var(--w);
-  height: var(--h);
-  animation: phoneFloat 6.4s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .rig { animation: none; }
-}
-@keyframes phoneFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-9px); }
+  aspect-ratio: 3 / 4.1;
 }
 
-.card {
-  position: relative;
+.scenePlaceholder {
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
-  transform: rotateY(var(--ry)) rotateX(var(--rx));
-}
-
-/* ---- Face avant : bezel + écran ---- */
-.frame {
-  position: absolute;
-  inset: 0;
-  transform: translateZ(calc(var(--d) / 2));
-  border-radius: 30px;
-  background: linear-gradient(160deg, #45423d 0%, #211f1c 40%, #0a0908 78%, #050403 100%);
-  padding: 7px;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,.12) inset,
-    0 0 0 1px rgba(0,0,0,.6),
-    0 30px 60px -20px rgba(0,0,0,.55);
-}
-.frame::before {
-  /* Surbrillance nette sur l'arete gauche du bezel, cote qui recoit la
-     lumiere vu l'angle fixe (--ry negatif = penche vers la droite). */
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.4px;
-  background: linear-gradient(100deg,
-    rgba(255,255,255,.55) 0%,
-    rgba(255,255,255,.08) 7%,
-    transparent 22%,
-    transparent 78%,
-    rgba(255,255,255,.16) 100%
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-.screen {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 24px;
-  overflow: hidden;
-  background: var(--surface-sunk);
-  box-shadow: 0 0 0 1px rgba(0,0,0,.5) inset;
-}
-.notch {
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32%;
-  height: 18px;
-  background: #0a0908;
-  border-radius: 999px;
-  z-index: 2;
-}
-.screen img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity .4s ease;
-}
-.screen img[data-active="true"] {
-  opacity: 1;
-}
-.sheen {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, rgba(255,255,255,.16) 0%, transparent 24%, transparent 76%, rgba(255,255,255,.05) 100%);
-  pointer-events: none;
-  z-index: 3;
-}
-
-/* ---- Tranches visibles sous cet angle : droite + bas ----
-   Les deux ensemble revelent un vrai coin (vertex), pas juste un biseau --
-   c'est ce qui fait lire "bloc en volume" plutot que "carte inclinee". */
-.edge {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: var(--d);
-  height: 100%;
-  border-radius: 0 22px 8px 0;
-  transform-origin: right center;
-  transform: rotateY(90deg) translateZ(calc(var(--d) / 2));
-  background: linear-gradient(90deg, #050403 0%, #6b655b 44%, #8a8375 50%, #6b655b 56%, #050403 100%);
-}
-.edge::before {
-  /* Bouton d'alimentation */
-  content: "";
-  position: absolute;
-  top: 22%;
-  left: 0;
-  width: 100%;
-  height: 11%;
-  background: linear-gradient(90deg, #171513, #5a544c 50%, #171513);
-  border-radius: 2px;
-}
-.edge::after {
-  /* Volume */
-  content: "";
-  position: absolute;
-  top: 37%;
-  left: 0;
-  width: 100%;
-  height: 8%;
-  background: linear-gradient(90deg, #171513, #5a544c 50%, #171513);
-  border-radius: 2px;
-}
-
-.edgeBottom {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: var(--d);
-  border-radius: 0 0 22px 8px;
-  transform-origin: center bottom;
-  transform: rotateX(-90deg) translateZ(calc(var(--d) / 2));
-  background: linear-gradient(180deg, #050403 0%, #57524a 46%, #6f6a60 52%, #050403 100%);
-}
-.edgeBottom::before {
-  /* Port USB-C */
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 24%;
-  height: 26%;
-  transform: translate(-50%, -50%);
-  background: #0a0908;
-  border-radius: 3px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset;
 }
 
 .stageInfo {

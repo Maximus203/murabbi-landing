@@ -36,7 +36,7 @@ export default function ConfidentialitePage() {
         <strong>Compte</strong>
         <p>
           Email, prénom, nom, genre, date de naissance (facultative) — pour créer ton compte, te
-          connecter (email/mot de passe, Google, ou Apple sur iOS) et personnaliser l&apos;app.
+          connecter (email et mot de passe) et personnaliser l&apos;app.
           Stockées sur nos serveurs (Supabase).
         </p>
       </div>

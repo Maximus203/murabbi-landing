@@ -12,7 +12,7 @@ export default function ConfidentialitePage() {
     <>
       <p className={styles.eyebrow}>Confidentialité</p>
       <h1 className={styles.h1}>Politique de confidentialité</h1>
-      <p className={styles.meta}>Dernière mise à jour : 26 août 2026</p>
+      <p className={styles.meta}>Dernière mise à jour : 19 septembre 2026</p>
 
       <p className={styles.lead}>
         Cette page explique, sans jargon, quelles données Murabbi collecte, pourquoi, combien de
@@ -44,11 +44,27 @@ export default function ConfidentialitePage() {
       <div className={styles.card}>
         <strong>Localisation</strong>
         <p>
-          Utilisée uniquement pour calculer les horaires de prière de ton lieu. Tes coordonnées{' '}
-          <strong>restent sur ton téléphone</strong> — elles ne sont jamais envoyées à nos
-          serveurs. Pour afficher le nom de ta ville, elles sont transmises à{' '}
-          <strong>Nominatim (OpenStreetMap)</strong>, un service indépendant de géocodage, sans
-          passer par nous.
+          Ta position sert à calculer les horaires de prière de ton lieu. Pour que tu retrouves
+          tes réglages après une réinstallation ou sur un nouveau téléphone, deux informations
+          sont enregistrées sur ton compte (Supabase) :
+        </p>
+        <ul>
+          <li>
+            <strong>la position de calcul de tes prières</strong>,{' '}
+            <strong>arrondie à environ 1&nbsp;km</strong>, avec ta méthode de calcul, ton école et
+            ta règle de haute latitude ;
+          </li>
+          <li>
+            <strong>ton domicile</strong>, si tu le renseignes dans les réglages (coordonnées et
+            libellé, sans arrondi), pour savoir si tu es chez toi.
+          </li>
+        </ul>
+        <p>
+          Elles ne servent à rien d&apos;autre. Comme toute donnée de ton compte, elles ne sont
+          accessibles qu&apos;à toi et à l&apos;équipe qui administre la base de données ; le
+          back-office de Murabbi n&apos;affiche pas ton domicile. Pour afficher le nom de ta
+          ville, tes coordonnées sont transmises à <strong>Nominatim (OpenStreetMap)</strong>, un
+          service indépendant de géocodage, sans passer par nous.
         </p>
       </div>
 

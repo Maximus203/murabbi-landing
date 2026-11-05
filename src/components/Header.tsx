@@ -14,7 +14,8 @@ const LEGAL = [
 
 /** En-tête de toutes les pages : navigation, ambiance, menu mobile (`<dialog>`). */
 export function Header() {
-  const path = usePathname()
+  // Même page quelle que soit la forme de l'adresse (/testeurs, /testeurs.html, /testeurs/).
+  const path = (usePathname() ?? '/').replace(/\/$/, '').replace(/\.html$/, '') || '/'
   const menu = useRef<HTMLDialogElement>(null)
   const [open, setOpen] = useState<{ name: 'ambiance' | 'legal'; path: string } | null>(null)
   // Un panneau ne survit pas à un changement de page.
@@ -41,7 +42,8 @@ export function Header() {
   }, [panel])
 
   const tester = path === '/testeurs'
-  const cur = (href: string) => (path === href ? 'page' : undefined)
+  const norm = (p: string) => p.replace(/\.html$/, '') || '/'
+  const cur = (href: string) => (path === norm(href) ? 'page' : undefined)
 
   return (
     <header className="site-header">

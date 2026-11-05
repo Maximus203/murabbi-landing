@@ -45,6 +45,22 @@ export function useAmbiance(): Ambiance {
   return { family, tier }
 }
 
+/** Réapplique l'ambiance choisie (si React a réécrit <html> lors d'une hydratation). */
+export function restoreAmbiance() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORE) || 'null')
+    const d = document.documentElement
+    const q = new URLSearchParams(location.search)
+    const f = q.get('fam') || s?.family
+    const t = q.get('tier') || s?.tier
+    if (f && FAMILIES.some((x) => x.id === f) && d.dataset.family !== f) d.dataset.family = f
+    if (t && TIERS.some((x) => x.id === t) && d.dataset.tier !== t) d.dataset.tier = t
+    window.dispatchEvent(new Event(EVENT))
+  } catch {
+    /* sans stockage : on garde ce qui est affiché */
+  }
+}
+
 export function setAmbiance(next: Partial<Ambiance>) {
   const d = document.documentElement
   if (next.family) d.dataset.family = next.family

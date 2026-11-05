@@ -20,7 +20,7 @@ export default function CguPage() {
         ci-dessous.
       </p>
 
-      <h2 className={styles.h2}>1. L&apos;application</h2>
+      <h2 id="l-application" className={styles.h2}>1. L&apos;application</h2>
       <p>
         Murabbi est une application mobile qui t&apos;aide à organiser ta pratique quotidienne —
         horaires de prière, habitudes personnelles, suivi de progression — développée par El Hadji
@@ -34,7 +34,7 @@ export default function CguPage() {
         autorité religieuse et ne délivre pas d&apos;avis religieux (fatwa).
       </p>
 
-      <h2 className={styles.h2}>2. Ton compte</h2>
+      <h2 id="ton-compte" className={styles.h2}>2. Ton compte</h2>
       <ul>
         <li>
           Tu dois avoir <strong>13 ans ou plus</strong> pour créer un compte Murabbi.
@@ -51,7 +51,7 @@ export default function CguPage() {
         </li>
       </ul>
 
-      <h2 className={styles.h2}>3. Contenu que tu partages</h2>
+      <h2 id="contenu-que-tu-partages" className={styles.h2}>3. Contenu que tu partages</h2>
       <p>
         Si tu rejoins un &quot;cercle&quot;, ton pseudo et ton niveau sont visibles par les
         autres membres de ce cercle. Tu restes seul responsable du contenu que tu choisis d&apos;y
@@ -59,13 +59,13 @@ export default function CguPage() {
         entraîner la suspension de ton compte.
       </p>
 
-      <h2 className={styles.h2}>4. Propriété intellectuelle</h2>
+      <h2 id="propriete-intellectuelle" className={styles.h2}>4. Propriété intellectuelle</h2>
       <p>
         L&apos;application, son design, sa marque et son contenu éditorial appartiennent à leur
         auteur. Tu ne peux pas les reproduire ou les redistribuer sans autorisation écrite.
       </p>
 
-      <h2 className={styles.h2}>5. Limitation de responsabilité</h2>
+      <h2 id="limitation-de-responsabilite" className={styles.h2}>5. Limitation de responsabilité</h2>
       <p>
         Murabbi est fournie &quot;en l&apos;état&quot;. Nous mettons tout en œuvre pour que les
         horaires de prière et les rappels soient fiables, mais nous ne pouvons garantir une
@@ -73,28 +73,28 @@ export default function CguPage() {
         téléphone). Murabbi ne remplace pas un avis médical, religieux ou professionnel.
       </p>
 
-      <h2 className={styles.h2}>6. Suspension et résiliation</h2>
+      <h2 id="suspension-et-resiliation" className={styles.h2}>6. Suspension et résiliation</h2>
       <p>
         Nous pouvons suspendre ou supprimer un compte en cas de non-respect de ces conditions, de
         fraude ou d&apos;usage abusif. Tu peux à tout moment cesser d&apos;utiliser Murabbi et
         supprimer ton compte.
       </p>
 
-      <h2 className={styles.h2}>7. Droit applicable</h2>
+      <h2 id="droit-applicable" className={styles.h2}>7. Droit applicable</h2>
       <p>
         Ces conditions sont régies par le droit sénégalais. Tout litige sera soumis aux
         juridictions compétentes de Dakar, sauf disposition impérative contraire applicable dans
         ton pays de résidence.
       </p>
 
-      <h2 className={styles.h2}>8. Modifications</h2>
+      <h2 id="modifications" className={styles.h2}>8. Modifications</h2>
       <p>
         Ces conditions peuvent évoluer. En cas de changement important, tu seras informé·e dans
         l&apos;app. La poursuite de l&apos;utilisation de Murabbi après une modification vaut
         acceptation des nouvelles conditions.
       </p>
 
-      <h2 className={styles.h2}>Contact</h2>
+      <h2 id="contact" className={styles.h2}>Contact</h2>
       <p>
         Pour toute question :{' '}
         <a href="mailto:el.hadji.ahmadou.cherif.diouf@gmail.com">

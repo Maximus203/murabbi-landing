@@ -21,14 +21,14 @@ export default function SuppressionComptePage() {
         Voici les deux façons de le faire, et ce qui se passe exactement ensuite.
       </p>
 
-      <h2 className={styles.h2}>1. Depuis l&apos;application (le plus rapide)</h2>
+      <h2 id="depuis-l-application-le-plus-rapide" className={styles.h2}>1. Depuis l&apos;application (le plus rapide)</h2>
       <p>
         Ouvre Murabbi, puis&nbsp;: <strong>Réglages</strong> → <strong>Compte</strong> →{' '}
         <strong>Supprimer mon compte</strong>. Confirme, et la demande est enregistrée
         immédiatement.
       </p>
 
-      <h2 className={styles.h2}>2. Par email (si tu n&apos;as plus accès à l&apos;app)</h2>
+      <h2 id="par-email-si-tu-n-as-plus-acces-a-l-app" className={styles.h2}>2. Par email (si tu n&apos;as plus accès à l&apos;app)</h2>
       <p>
         Écris à{' '}
         <a href="mailto:el.hadji.ahmadou.cherif.diouf@gmail.com?subject=Suppression%20de%20mon%20compte%20Murabbi">
@@ -38,7 +38,7 @@ export default function SuppressionComptePage() {
         objet. La demande est traitée sous 7 jours ouvrés.
       </p>
 
-      <h2 className={styles.h2}>Ce qui est supprimé</h2>
+      <h2 id="ce-qui-est-supprime" className={styles.h2}>Ce qui est supprimé</h2>
       <ul>
         <li>
           Ton compte et tes informations personnelles (email, prénom, nom, genre, date de
@@ -58,7 +58,7 @@ export default function SuppressionComptePage() {
         <a href="/confidentialite.html">politique de confidentialité</a>.
       </p>
 
-      <h2 className={styles.h2}>Délai</h2>
+      <h2 id="delai" className={styles.h2}>Délai</h2>
       <p>
         Ton compte est <strong>désactivé immédiatement</strong> — tu ne peux plus t&apos;y
         connecter et tu disparais de ton cercle. Les données sont ensuite{' '}

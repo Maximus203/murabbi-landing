@@ -14,6 +14,8 @@ type Props = {
   /** Multiplicateur d'intensité : 1, 0,7 ou 0,5. */
   k?: number
   className?: string
+  /** Le motif suit la famille de la carte qui le porte, pas celle de la page. */
+  own?: boolean
 }
 
 /**
@@ -21,7 +23,7 @@ type Props = {
  * opacités viennent des jetons (`--ink`, `--halo`, `--m-plate|fill|stroke`).
  * Le motif dominant change avec la famille d'ambiance (voir globals.css).
  */
-export function Rosace({ role = 'dominant', turn, at, atDesktop, k = 1, className = '' }: Props) {
+export function Rosace({ role = 'dominant', turn, at, atDesktop, k = 1, className = '', own = false }: Props) {
   const style = {
     '--rk': at.rk,
     '--cx': at.cx,
@@ -33,7 +35,7 @@ export function Rosace({ role = 'dominant', turn, at, atDesktop, k = 1, classNam
   return (
     <div className={`rosace-slot ${className}`.trim()} style={style} aria-hidden="true">
       <div className="halo" />
-      <div className="rosace" data-turn={turn}>
+      <div className={`rosace${own ? ' own' : ''}`} data-turn={turn}>
         <svg viewBox="-100 -100 200 200" focusable="false">
           {dominant ? (
             <>

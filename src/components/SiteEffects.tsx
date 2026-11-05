@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { restoreAmbiance } from '@/lib/ambiance'
 
 /**
  * Apparition des blocs et pilotage des rosaces : une section est « vue »
@@ -10,6 +11,9 @@ import { usePathname } from 'next/navigation'
  */
 export function SiteEffects() {
   const path = usePathname()
+  useEffect(() => {
+    restoreAmbiance()
+  }, [path])
   useEffect(() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
     const reveals = document.querySelectorAll<HTMLElement>('.reveal')

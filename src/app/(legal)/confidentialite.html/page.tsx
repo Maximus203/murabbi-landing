@@ -21,7 +21,7 @@ export default function ConfidentialitePage() {
         à la date ci-dessus.
       </p>
 
-      <h2 className={styles.h2}>Qui est responsable de ces données</h2>
+      <h2 id="qui-est-responsable-de-ces-donnees" className={styles.h2}>Qui est responsable de ces données</h2>
       <p>
         Murabbi est développée par El Hadji Ahmadou Cherif Diouf (Artist Digital), basé à Dakar,
         Sénégal. Pour toute question sur tes données ou pour exercer tes droits, écris à{' '}
@@ -31,7 +31,7 @@ export default function ConfidentialitePage() {
         .
       </p>
 
-      <h2 className={styles.h2}>Les données que Murabbi enregistre</h2>
+      <h2 id="les-donnees-que-murabbi-enregistre" className={styles.h2}>Les données que Murabbi enregistre</h2>
 
       <div className={styles.card}>
         <strong>Compte</strong>
@@ -175,7 +175,7 @@ export default function ConfidentialitePage() {
         </p>
       </div>
 
-      <h2 className={styles.h2}>Qui peut voir tes données</h2>
+      <h2 id="qui-peut-voir-tes-donnees" className={styles.h2}>Qui peut voir tes données</h2>
       <ul>
         <li>
           <strong>Tous les utilisateurs connectés de Murabbi</strong> voient ton pseudo, tes
@@ -202,7 +202,7 @@ export default function ConfidentialitePage() {
         </li>
       </ul>
 
-      <h2 className={styles.h2}>Les services qui interviennent</h2>
+      <h2 id="les-services-qui-interviennent" className={styles.h2}>Les services qui interviennent</h2>
       <ul>
         <li>Supabase : comptes, réglages et progression.</li>
         <li>Firebase Cloud Messaging (Google) : notifications.</li>
@@ -222,14 +222,14 @@ export default function ConfidentialitePage() {
         connexion qui le contacte.
       </p>
 
-      <h2 className={styles.h2}>Ce que nous ne faisons jamais</h2>
+      <h2 id="ce-que-nous-ne-faisons-jamais" className={styles.h2}>Ce que nous ne faisons jamais</h2>
       <ul>
         <li>Nous ne vendons aucune donnée à des tiers.</li>
         <li>Nous n&apos;utilisons pas tes données à des fins publicitaires.</li>
         <li>Nous ne partageons jamais ta donnée de pause menstruelle, avec personne.</li>
       </ul>
 
-      <h2 className={styles.h2}>Combien de temps tes données sont gardées</h2>
+      <h2 id="combien-de-temps-tes-donnees-sont-gardees" className={styles.h2}>Combien de temps tes données sont gardées</h2>
       <p>
         Tant que ton compte existe. Si tu supprimes ton compte depuis les réglages de
         l&apos;app, il est désactivé tout de suite : tu ne peux plus t&apos;y connecter. Ses
@@ -254,7 +254,7 @@ export default function ConfidentialitePage() {
         n&apos;as pas accès à l&apos;app.
       </p>
 
-      <h2 className={styles.h2}>Tes droits</h2>
+      <h2 id="tes-droits" className={styles.h2}>Tes droits</h2>
       <p>
         Tu peux à tout moment demander l&apos;accès, la rectification ou la suppression de tes
         données, en écrivant à{' '}
@@ -264,10 +264,10 @@ export default function ConfidentialitePage() {
         .
       </p>
 
-      <h2 className={styles.h2}>Âge minimum</h2>
+      <h2 id="age-minimum" className={styles.h2}>Âge minimum</h2>
       <p>Murabbi n&apos;est pas destinée aux personnes de moins de 13 ans.</p>
 
-      <h2 className={styles.h2}>Modifications de cette politique</h2>
+      <h2 id="modifications-de-cette-politique" className={styles.h2}>Modifications de cette politique</h2>
       <p>
         Si cette politique change, la date de mise à jour en haut de cette page sera actualisée.
         En cas de changement important, tu seras informé·e dans l&apos;app.

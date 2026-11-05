@@ -9,7 +9,7 @@ import './globals.css'
 
 const TITLE = "Murabbi — tes prières à l'heure, tes habitudes au quotidien"
 const DESC =
-  "Murabbi connaît la plage de chaque prière là où tu es et te relance avant qu'elle passe. Invocations récitées au rappel, adhkar, Coran et habitudes : un trait par jour. En test fermé sur Android et iPhone."
+  "Murabbi connaît la plage de chaque prière là où tu es et te relance avant qu'elle passe. Au rappel, ton téléphone te récite istighfar, tasbih, salawat. Adhkar, Coran et habitudes : un trait par jour. En test fermé sur Android et iPhone."
 
 // Adresse publique du site (ex. https://exemple.org) : sans elle, l'image de partage
 // n'est pas déclarée, car une adresse absolue est requise.

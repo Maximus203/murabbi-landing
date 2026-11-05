@@ -16,7 +16,7 @@ export function Families() {
       <div className="fam-grid">
         {FAMILIES.map((f) => (
           <div className="fam-card reveal" key={f.id} data-family={f.id} data-tier={tier} data-active={family === f.id}>
-            <Rosace at={{ rk: 0.85, cx: 0.5, cy: 0.3 }} />
+            <Rosace at={{ rk: 0.62, cx: 0.5, cy: 0.3 }} own />
             <div className="fam-body">
               <h3>{f.label}</h3>
               <p className="small">{motifName(f.id, tier)}</p>

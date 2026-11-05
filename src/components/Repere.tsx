@@ -116,9 +116,9 @@ export function Repere() {
     if (base === null) return null
     return base + ((dir === 'before' ? -1 : 1) * offset) / 60
   }
-  const label = anchorLabel(anchor)
+  const label = anchor === 'sunrise' ? 'le lever du soleil' : anchorLabel(anchor)
   const dirWord = dir === 'before' ? 'avant' : 'après'
-  const sentence = offset === 0 ? `Pile ${dirWord === 'avant' ? 'avant' : 'au'} ${label}.` : `${offset} minutes ${dirWord} ${label}.`
+  const sentence = offset === 0 ? `À l'heure exacte : ${label}.` : `${offset} minutes ${dirWord} ${label}.`
 
   return (
     <div className="repere-grid">

@@ -10,9 +10,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Moteur de la page repris verbatim de l'ancien index.html (cf. commit
-    // de migration) — pas du code de projet, pas de lint dessus.
-    "src/landing-engine.js",
+    // Scripts de génération (motifs, captures) : Node, hors du site.
+    "scripts/**",
   ]),
 ]);
 

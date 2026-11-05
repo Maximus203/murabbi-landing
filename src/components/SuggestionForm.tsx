@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
-import { supabase } from '@/lib/supabaseClient'
-import styles from '../app/(legal)/legal.module.css'
+import { getSupabase } from '@/lib/supabaseClient'
+import { IconAlert } from './Icons'
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -54,13 +54,19 @@ export function SuggestionForm() {
 
     if (messageLength < MESSAGE_MIN || messageLength > MESSAGE_MAX) {
       setStatus('error')
-      setErrorMessage(`Le message doit faire entre ${MESSAGE_MIN} et ${MESSAGE_MAX} caracteres.`)
+      setErrorMessage(`Le message doit faire entre ${MESSAGE_MIN} et ${MESSAGE_MAX} caractères.`)
       return
     }
 
     setStatus('submitting')
     setErrorMessage('')
 
+    const supabase = getSupabase()
+    if (!supabase) {
+      setStatus('error')
+      setErrorMessage("Le formulaire n'est pas encore ouvert. Écris-nous directement par email, on te répond.")
+      return
+    }
     const { error } = await supabase.from('landing_suggestions').insert({
       kind,
       message: message.trim(),
@@ -70,7 +76,7 @@ export function SuggestionForm() {
 
     if (error) {
       setStatus('error')
-      setErrorMessage("L'envoi a echoue. Reessaie dans un instant, ou ecris-nous directement.")
+      setErrorMessage("L'envoi a échoué. Réessaie dans un instant, ou écris-nous directement.")
       return
     }
 
@@ -83,176 +89,132 @@ export function SuggestionForm() {
 
   if (status === 'success') {
     return (
-      <div className={styles.card} role="status">
-        <p className={styles.lead}>Merci, ta suggestion est bien arrivee.</p>
-        <p>On lit chaque message. S&apos;il ouvre une piste concrete, elle finira dans le catalogue d&apos;habitudes ou dans une prochaine mise a jour.</p>
+      <div className="success" role="status">
+        <h2 tabIndex={-1} ref={(el) => el?.focus()}>Merci, ta suggestion est bien arrivée.</h2>
+        <p>
+          On lit chaque message. S&apos;il ouvre une piste concrète, elle finira dans le catalogue d&apos;habitudes ou dans une prochaine mise à jour.
+        </p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <div className={styles.card} style={{ display: 'grid', gap: 16 }}>
-        <div style={{ display: 'grid', gap: 8 }}>
-          <span style={{ fontSize: 14, fontWeight: 600 }}>Ta suggestion concerne</span>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <label className="btn btn-ghost btn-sm" style={{ cursor: 'pointer' }}>
-              <input
-                type="radio"
-                name="kind"
-                value="habit"
-                checked={kind === 'habit'}
-                onChange={() => setKind('habit')}
-                style={{ marginRight: 8 }}
-              />
-              Une nouvelle habitude
-            </label>
-            <label className="btn btn-ghost btn-sm" style={{ cursor: 'pointer' }}>
-              <input
-                type="radio"
-                name="kind"
-                value="improvement"
-                checked={kind === 'improvement'}
-                onChange={() => setKind('improvement')}
-                style={{ marginRight: 8 }}
-              />
-              Une amelioration de l&apos;application
-            </label>
-          </div>
-        </div>
-
-        {kind === 'habit' && (
-          <div style={{ display: 'grid', gap: 8 }}>
-            <label htmlFor="suggestion-category" style={{ fontSize: 14, fontWeight: 600 }}>
-              Catégorie <span style={{ fontWeight: 400, color: 'var(--text-3)' }}>(facultatif)</span>
-            </label>
-            <select
-              id="suggestion-category"
-              name="category"
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-              style={{
-                width: '100%',
-                padding: '12px 14px',
-                borderRadius: 10,
-                border: '1px solid var(--border)',
-                background: 'var(--bg)',
-                color: 'var(--text)',
-                font: 'inherit',
-              }}
-            >
-              <option value="">Choisis une catégorie…</option>
-              {SYSTEM_CATEGORIES.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-              <option value={OTHER_CATEGORY}>Autre (précise)</option>
-            </select>
-            {isOtherCategory && (
-              <input
-                id="suggestion-category-custom"
-                name="customCategory"
-                type="text"
-                maxLength={CATEGORY_MAX}
-                value={customCategory}
-                onChange={(event) => setCustomCategory(event.target.value)}
-                placeholder="Nom de la catégorie que tu proposes"
-                style={{
-                  width: '100%',
-                  padding: '12px 14px',
-                  borderRadius: 10,
-                  border: '1px solid var(--border)',
-                  background: 'var(--bg)',
-                  color: 'var(--text)',
-                  font: 'inherit',
-                }}
-              />
-            )}
-          </div>
-        )}
-
-        <div style={{ display: 'grid', gap: 8 }}>
-          <label htmlFor="suggestion-message" style={{ fontSize: 14, fontWeight: 600 }}>
-            Ton message
+    <form onSubmit={handleSubmit} noValidate className="form-grid">
+      <fieldset className="field">
+        <legend className="label">Ta suggestion concerne</legend>
+        <div className="radio-row">
+          <label className="radio">
+            <input type="radio" name="kind" value="habit" checked={kind === 'habit'} onChange={() => setKind('habit')} />
+            Une nouvelle habitude
           </label>
-          <textarea
-            id="suggestion-message"
-            name="message"
-            required
-            minLength={MESSAGE_MIN}
-            maxLength={MESSAGE_MAX}
-            rows={5}
-            value={message}
-            onChange={(event) => setMessage(event.target.value)}
-            placeholder="Decris l'habitude que tu aimerais voir dans le catalogue, ou ce qui te manque dans l'application."
-            style={{
-              width: '100%',
-              resize: 'vertical',
-              padding: '12px 14px',
-              borderRadius: 10,
-              border: '1px solid var(--border)',
-              background: 'var(--bg)',
-              color: 'var(--text)',
-              font: 'inherit',
-            }}
-          />
-          <span style={{ fontSize: 12, color: messageTooShort ? 'var(--accent-ink)' : 'var(--text-3)' }}>
-            {messageLength}/{MESSAGE_MAX} caracteres {messageTooShort ? `(minimum ${MESSAGE_MIN})` : ''}
-          </span>
-        </div>
-
-        <div style={{ display: 'grid', gap: 8 }}>
-          <label htmlFor="suggestion-email" style={{ fontSize: 14, fontWeight: 600 }}>
-            Ton email <span style={{ fontWeight: 400, color: 'var(--text-3)' }}>(facultatif, pour te repondre)</span>
+          <label className="radio">
+            <input type="radio" name="kind" value="improvement" checked={kind === 'improvement'} onChange={() => setKind('improvement')} />
+            Une amélioration de l&apos;application
           </label>
-          <input
-            id="suggestion-email"
-            name="email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="toi@exemple.com"
-            style={{
-              width: '100%',
-              padding: '12px 14px',
-              borderRadius: 10,
-              border: '1px solid var(--border)',
-              background: 'var(--bg)',
-              color: 'var(--text)',
-              font: 'inherit',
-            }}
-          />
         </div>
+      </fieldset>
 
-        {/* Piege a bots : masque visuellement et aux lecteurs d'ecran, jamais rempli par une personne. */}
-        <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }}>
-          <label htmlFor="suggestion-website">Site web</label>
-          <input
-            id="suggestion-website"
-            name="website"
-            type="text"
-            tabIndex={-1}
-            autoComplete="off"
-            value={website}
-            onChange={(event) => setWebsite(event.target.value)}
-          />
+      {kind === 'habit' && (
+        <div className="field">
+          <label htmlFor="suggestion-category">
+            Catégorie <span className="opt">(facultatif)</span>
+          </label>
+          <select
+            id="suggestion-category"
+            name="category"
+            className="select"
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+          >
+            <option value="">Choisis une catégorie…</option>
+            {SYSTEM_CATEGORIES.map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
+            <option value={OTHER_CATEGORY}>Autre (précise)</option>
+          </select>
+          {isOtherCategory && (
+            <input
+              id="suggestion-category-custom"
+              name="customCategory"
+              type="text"
+              className="input"
+              maxLength={CATEGORY_MAX}
+              value={customCategory}
+              onChange={(event) => setCustomCategory(event.target.value)}
+              aria-label="Nom de la catégorie que tu proposes"
+              placeholder="Nom de la catégorie que tu proposes"
+            />
+          )}
         </div>
+      )}
 
-        {status === 'error' && (
-          <p role="alert" style={{ color: 'var(--accent-ink)', fontSize: 14, margin: 0 }}>
-            {errorMessage}
-          </p>
-        )}
-
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={status === 'submitting' || messageLength < MESSAGE_MIN}
-        >
-          {status === 'submitting' ? 'Envoi en cours…' : 'Envoyer ma suggestion'}
-        </button>
+      <div className="field">
+        <label htmlFor="suggestion-message">Ton message</label>
+        <textarea
+          id="suggestion-message"
+          name="message"
+          className="textarea"
+          required
+          minLength={MESSAGE_MIN}
+          maxLength={MESSAGE_MAX}
+          rows={5}
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          aria-invalid={messageTooShort || undefined}
+          aria-describedby="suggestion-count"
+          placeholder="Décris l'habitude que tu aimerais voir dans le catalogue, ou ce qui te manque dans l'application."
+        />
+        <span id="suggestion-count" className="small">
+          {messageLength}/{MESSAGE_MAX} caractères {messageTooShort ? `(minimum ${MESSAGE_MIN})` : ''}
+        </span>
       </div>
+
+      <div className="field">
+        <label htmlFor="suggestion-email">
+          Ton email <span className="opt">(facultatif, pour te répondre)</span>
+        </label>
+        <input
+          id="suggestion-email"
+          name="email"
+          type="email"
+          className="input"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="toi@exemple.com"
+        />
+      </div>
+
+      {/* Piège à bots : masqué visuellement et aux lecteurs d'écran, jamais rempli par une personne. */}
+      <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }}>
+        <label htmlFor="suggestion-website">Site web</label>
+        <input
+          id="suggestion-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(event) => setWebsite(event.target.value)}
+        />
+      </div>
+
+      {status === 'error' && (
+        <p role="alert" className="field-error">
+          <IconAlert />
+          {errorMessage}
+        </p>
+      )}
+
+      <button
+        type="submit"
+        className="btn btn-primary btn-block"
+        disabled={status === 'submitting' || messageLength < MESSAGE_MIN}
+        aria-busy={status === 'submitting'}
+      >
+        {status === 'submitting' ? 'Envoi…' : 'Envoyer ma suggestion'}
+      </button>
     </form>
   )
 }

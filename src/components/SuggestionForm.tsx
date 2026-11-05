@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
-import { supabase } from '@/lib/supabaseClient'
+import { getSupabase } from '@/lib/supabaseClient'
 import styles from '../app/(legal)/legal.module.css'
 
 type Status = 'idle' | 'submitting' | 'success' | 'error'
@@ -61,6 +61,12 @@ export function SuggestionForm() {
     setStatus('submitting')
     setErrorMessage('')
 
+    const supabase = getSupabase()
+    if (!supabase) {
+      setStatus('error')
+      setErrorMessage("Le formulaire n'est pas encore ouvert. Écris-nous directement par email, on te répond.")
+      return
+    }
     const { error } = await supabase.from('landing_suggestions').insert({
       kind,
       message: message.trim(),

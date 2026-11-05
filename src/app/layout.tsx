@@ -1,10 +1,19 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { MotifSprite } from '@/components/motifs/MotifSprite'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+import { SiteEffects } from '@/components/SiteEffects'
+import { BOOTSTRAP } from '@/lib/ambiance'
+import { arabic, body, display } from './fonts'
 import './globals.css'
 
+const TITLE = "Murabbi — tes prières à l'heure, tes habitudes au quotidien"
+const DESC =
+  "Murabbi connaît la plage de chaque prière là où tu es et te relance avant qu'elle passe. Invocations récitées au rappel, adhkar, Coran et habitudes : un trait par jour. En test fermé sur Android et iPhone."
+
 export const metadata: Metadata = {
-  title: 'Murabbi — tes habitudes, ancrées sur le rythme de ta journée',
-  description:
-    "Murabbi accroche tes habitudes aux cinq repères qui structurent réellement ta journée. Prières, habitudes avancées, cercle bienveillant, calendrier hégirien. Application mobile — bêta à venir.",
+  title: TITLE,
+  description: DESC,
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32' },
@@ -13,44 +22,36 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: '/site.webmanifest',
-  openGraph: {
-    title: 'Murabbi — tes habitudes, ancrées sur le rythme de ta journée',
-    description: "Tu ne choisis pas une heure. Tu choisis un repère. Murabbi recalcule le reste, chaque jour.",
-    type: 'website',
-    locale: 'fr_FR',
-  },
+  openGraph: { title: TITLE, description: DESC, type: 'website', locale: 'fr_FR', siteName: 'Murabbi' },
 }
 
-export function generateViewport() {
-  return {
-    themeColor: [
-      { media: '(prefers-color-scheme: light)', color: '#F5F2ED' },
-      { media: '(prefers-color-scheme: dark)', color: '#1A1814' },
-    ],
-  }
+export const viewport: Viewport = {
+  themeColor: '#EEE8DC',
+  colorScheme: 'light dark',
 }
 
-/**
- * Polices chargees exactement comme dans l'ancienne page statique — deux
- * <link> plutot que next/font/google — pour ne rien changer au rendu
- * (auto-hebergement via next/font resubdiviserait/re-servirait les fichiers
- * de police, un risque de micro-diff visuel qu'il n'y avait aucune raison de
- * prendre pour cette migration). Voir le commentaire d'origine dans
- * l'ancien index.html sur l'italique de Newsreader, indispensable a l'accent
- * du titre principal.
- */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr">
+    <html
+      lang="fr"
+      data-family="classique"
+      data-tier="clair"
+      className={`${display.variable} ${body.variable} ${arabic.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,600&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
+        <script dangerouslySetInnerHTML={{ __html: BOOTSTRAP }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <a className="skip" href="#contenu">
+          Aller au contenu
+        </a>
+        <MotifSprite />
+        <Header />
+        <main id="contenu">{children}</main>
+        <Footer />
+        <SiteEffects />
+      </body>
     </html>
   )
 }

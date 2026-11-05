@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { LegalDoc } from '@/components/LegalDoc'
 import styles from '../legal.module.css'
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function SuppressionComptePage() {
   return (
-    <>
+    <LegalDoc>
       <p className={styles.eyebrow}>Compte</p>
       <h1 className={styles.h1}>Supprimer ton compte Murabbi</h1>
       <p className={styles.meta}>Dernière mise à jour : 26 août 2026</p>
@@ -75,6 +76,6 @@ export default function SuppressionComptePage() {
       <p>
         <a href="/confidentialite.html">← Voir la politique de confidentialité</a>
       </p>
-    </>
+    </LegalDoc>
   )
 }

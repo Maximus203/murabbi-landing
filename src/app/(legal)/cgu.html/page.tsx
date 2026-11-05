@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { LegalDoc } from '@/components/LegalDoc'
 import styles from '../legal.module.css'
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CguPage() {
   return (
-    <>
+    <LegalDoc>
       <p className={styles.eyebrow}>Conditions d&apos;utilisation</p>
       <h1 className={styles.h1}>Conditions générales d&apos;utilisation</h1>
       <p className={styles.meta}>Dernière mise à jour : 26 août 2026</p>
@@ -105,6 +106,6 @@ export default function CguPage() {
       <p>
         <a href="/confidentialite.html">← Voir la politique de confidentialité</a>
       </p>
-    </>
+    </LegalDoc>
   )
 }

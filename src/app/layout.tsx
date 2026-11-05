@@ -11,7 +11,12 @@ const TITLE = "Murabbi — tes prières à l'heure, tes habitudes au quotidien"
 const DESC =
   "Murabbi connaît la plage de chaque prière là où tu es et te relance avant qu'elle passe. Invocations récitées au rappel, adhkar, Coran et habitudes : un trait par jour. En test fermé sur Android et iPhone."
 
+// Adresse publique du site (ex. https://exemple.org) : sans elle, l'image de partage
+// n'est pas déclarée, car une adresse absolue est requise.
+const SITE = process.env.NEXT_PUBLIC_SITE_URL
+
 export const metadata: Metadata = {
+  ...(SITE ? { metadataBase: new URL(SITE) } : {}),
   title: TITLE,
   description: DESC,
   icons: {
@@ -22,7 +27,15 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: '/site.webmanifest',
-  openGraph: { title: TITLE, description: DESC, type: 'website', locale: 'fr_FR', siteName: 'Murabbi' },
+  openGraph: {
+    title: TITLE,
+    description: DESC,
+    type: 'website',
+    locale: 'fr_FR',
+    siteName: 'Murabbi',
+    ...(SITE ? { images: [{ url: '/og.png', width: 1200, height: 630, alt: "Murabbi : à l'heure, là où tu es." }] } : {}),
+  },
+  ...(SITE ? { twitter: { card: 'summary_large_image' as const } } : {}),
 }
 
 export const viewport: Viewport = {

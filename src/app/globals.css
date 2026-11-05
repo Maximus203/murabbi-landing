@@ -275,7 +275,7 @@ button.chip:active { transform: scale(0.98); }
 .input[aria-invalid='true'], .textarea[aria-invalid='true'] { border-color: var(--danger); }
 .field-error { font-size: 14px; color: var(--danger); display: flex; gap: 6px; align-items: flex-start; }
 
-.range { width: 100%; height: 28px; appearance: none; background: transparent; }
+.range { width: 100%; height: 44px; appearance: none; background: transparent; }
 .range::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: var(--hairline); }
 .range::-moz-range-track { height: 4px; border-radius: 2px; background: var(--hairline); }
 .range::-webkit-slider-thumb { appearance: none; margin-top: -12px; width: 28px; height: 28px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
@@ -302,7 +302,7 @@ button.chip:active { transform: scale(0.98); }
   background: color-mix(in srgb, var(--bg) 94%, transparent); border-bottom: 1px solid var(--hairline);
 }
 .header-in { display: flex; align-items: center; gap: var(--s3); height: var(--header-h); }
-.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 22px; color: var(--text); margin-right: auto; }
+.brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 22px; color: var(--text); margin-right: auto; }
 .brand svg { color: var(--accent); }
 .nav-desktop { display: none; align-items: center; gap: var(--s6); }
 .nav-link { position: relative; text-decoration: none; font-weight: 500; font-size: 16px; padding: 10px 0; color: var(--text); background: none; border: 0; display: inline-flex; align-items: center; gap: 6px; }
@@ -341,10 +341,11 @@ button.chip:active { transform: scale(0.98); }
 @keyframes pop { from { opacity: 0; transform: translateY(8px); } }
 
 .ambiance-panel { width: min(340px, calc(100vw - 2 * var(--gutter))); padding: var(--s4); }
-.ambiance-panel fieldset { border: 0; padding: 0; margin: 0 0 var(--s4); }
-.ambiance-panel legend { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2); padding: 0; margin-bottom: var(--s2); }
+.amb-set { border: 0; padding: 0; margin: 0 0 var(--s4); min-width: 0; }
+.amb-set legend { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-2); padding: 0; margin-bottom: var(--s2); }
 .radio-row { display: flex; flex-wrap: wrap; gap: var(--s2); }
 .radio {
+  position: relative;
   display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border-radius: var(--r-btn);
   border: 1px solid var(--border); background: var(--card); font-size: 15px; font-weight: 500;
 }

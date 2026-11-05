@@ -7,7 +7,7 @@ export function AmbiancePicker({ idPrefix = 'amb' }: { idPrefix?: string }) {
   const { family, tier } = useAmbiance()
   return (
     <div>
-      <fieldset>
+      <fieldset className="amb-set">
         <legend>Famille</legend>
         <div className="radio-row" role="radiogroup" aria-label="Famille d'ambiance">
           {FAMILIES.map((f) => (
@@ -24,7 +24,7 @@ export function AmbiancePicker({ idPrefix = 'amb' }: { idPrefix?: string }) {
           ))}
         </div>
       </fieldset>
-      <fieldset>
+      <fieldset className="amb-set">
         <legend>Intensité</legend>
         <div className="radio-row" role="radiogroup" aria-label="Intensité">
           {TIERS.map((t) => (

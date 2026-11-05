@@ -102,7 +102,7 @@ body {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
-  background: var(--bg);
+  background: transparent; /* le fond vient de <html> : les rosaces fixes passent derrière le contenu */
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
@@ -209,6 +209,7 @@ html:not(.js) .rosace, .section[data-inview] .rosace, .section[data-seen] .rosac
   background: linear-gradient(var(--veil-dir, to bottom),
     color-mix(in srgb, var(--bg) 97%, transparent) var(--veil-1, 0%),
     transparent var(--veil-2, 0%));
+  /* plateau à 97 % jusqu'à --veil-1, puis le motif revient pleinement à --veil-2 */
 }
 .section > .wrap { position: relative; z-index: 2; }
 .page-backdrop { position: fixed; inset: 0; z-index: -1; overflow: clip; container-type: inline-size; pointer-events: none; }
@@ -394,10 +395,10 @@ dialog.menu[open] { animation: pop var(--dur-base) var(--ease-out); display: fle
 @media (min-width: 480px) { .hero-cta { flex-direction: row; } }
 .hero-copy { display: grid; gap: var(--s4); }
 .hero-visual { display: flex; justify-content: center; padding-bottom: 0; }
-.hero { --veil-dir: to bottom; --veil-1: 0%; --veil-2: 52%; padding-bottom: var(--s16); }
+.hero { --veil-dir: to bottom; --veil-1: 48%; --veil-2: 62%; padding-bottom: var(--s16); }
 @media (min-width: 1024px) {
   .hero-grid { grid-template-columns: 1.1fr 0.9fr; }
-  .hero { --veil-dir: to right; --veil-1: 0%; --veil-2: 60%; }
+  .hero { --veil-dir: to right; --veil-1: 50%; --veil-2: 66%; }
 }
 
 /* Cadre téléphone */
@@ -479,8 +480,8 @@ dialog.menu[open] { animation: pop var(--dur-base) var(--ease-out); display: fle
 .fam-grid { display: grid; gap: var(--s4); margin-top: var(--s8); grid-template-columns: 1fr; }
 @media (min-width: 600px) { .fam-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .fam-grid { grid-template-columns: repeat(5, 1fr); } }
-.fam-card { position: relative; overflow: clip; container-type: inline-size; min-height: 280px; display: grid; align-content: end; background: var(--bg); border: 1px solid var(--hairline); border-radius: var(--r-card); isolation: isolate; }
-.fam-card .rosace-slot { --_rk: 0.85; --_cx: 0.5; --_cy: 0.3; }
+.fam-card { position: relative; overflow: clip; container-type: inline-size; min-height: 340px; display: grid; align-content: end; background: var(--bg); border: 1px solid var(--hairline); border-radius: var(--r-card); isolation: isolate; }
+.fam-card .rosace-slot { --_rk: 0.62; --_cx: 0.5; --_cy: 0.3; }
 .fam-body { position: relative; z-index: 2; margin: var(--s2); padding: var(--s4); background: var(--card); border-radius: 12px; display: grid; gap: var(--s2); color: var(--text); }
 .fam-body h3 { font-size: 22px; }
 .fam-body .small { color: var(--text-2); }
@@ -499,6 +500,7 @@ dialog.menu[open] { animation: pop var(--dur-base) var(--ease-out); display: fle
 .page-head .meta { font-size: 14px; color: var(--text-2); }
 .sheet { background: var(--card); border: 1px solid var(--hairline); border-radius: var(--r-card); padding: var(--s5); max-width: 720px; color: var(--text-2); }
 @media (min-width: 720px) { .sheet { padding: var(--s10); } }
+.sheet h1 { font-size: clamp(2rem, 1.4rem + 2.6vw, 3rem); margin: 4px 0 var(--s3); }
 .sheet h2 { font-size: clamp(1.5rem, 1.2rem + 1vw, 1.75rem); color: var(--text); margin: var(--s12) 0 var(--s3); padding-top: var(--s6); border-top: 1px solid var(--hairline); scroll-margin-top: 88px; }
 .sheet h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
 .sheet h3 { font-family: var(--font-body); font-size: 17px; color: var(--text); margin: var(--s6) 0 var(--s2); }
@@ -544,7 +546,12 @@ dialog.menu[open] { animation: pop var(--dur-base) var(--ease-out); display: fle
 .steps { display: grid; gap: var(--s5); margin-top: var(--s5); }
 .step { display: grid; grid-template-columns: 40px 1fr; gap: var(--s4); align-items: start; border-left: 2px solid var(--accent); padding-left: var(--s4); margin-left: var(--s2); }
 .step .n { font-family: var(--font-display); font-size: 32px; font-weight: 600; line-height: 1; color: var(--text); }
-.suggest-visual { display: none; }
+.form-grid { display: grid; gap: var(--s5); }
+.form-grid fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.form-grid .opt { font-weight: 400; color: var(--text-2); }
+.form-grid .btn:disabled { border: 1px dashed var(--border); background: transparent; color: var(--text-2); cursor: default; }
+.sheet .field label, .sheet .field .label { color: var(--text); }
+.success h2 { margin-top: 0; padding-top: 0; border-top: 0; outline: none; }
 .notfound { text-align: center; display: grid; gap: var(--s4); justify-items: center; padding: var(--s16) 0; }
 
 /* ==========================================================================

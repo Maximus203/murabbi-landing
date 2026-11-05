@@ -54,7 +54,7 @@ export default function HomePage() {
       </section>
 
       {/* 2 · Le repère */}
-      <section className="section" id="repere" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '0%', ['--veil-2' as string]: '24%' }}>
+      <section className="section" id="repere" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '24%', ['--veil-2' as string]: '38%' }}>
         <Rosace role="secondary" at={{ rk: 0.62, cx: 1.05, cy: 0.55 }} atDesktop={{ rk: 0.34, cx: 0.08, cy: 0.5 }} />
         <div className="veil" />
         <div className="wrap">
@@ -68,7 +68,7 @@ export default function HomePage() {
       </section>
 
       {/* 3 · Une voix */}
-      <section className="section" id="voix" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '0%', ['--veil-2' as string]: '38%' }}>
+      <section className="section" id="voix" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '38%', ['--veil-2' as string]: '52%' }}>
         <Rosace at={{ rk: 0.9, cx: 0.5, cy: 1.0 }} atDesktop={{ rk: 0.55, cx: 0.5, cy: 1.12 }} turn={360} />
         <div className="veil" />
         <div className="wrap">
@@ -100,7 +100,7 @@ export default function HomePage() {
       </section>
 
       {/* 4 · Constance */}
-      <section className="section" id="constance" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '0%', ['--veil-2' as string]: '20%' }}>
+      <section className="section" id="constance" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '26%', ['--veil-2' as string]: '40%' }}>
         <Rosace at={{ rk: 0.5, cx: -0.05, cy: 0.04 }} atDesktop={{ rk: 0.26, cx: -0.05, cy: 0.04 }} k={0.7} />
         <Rosace at={{ rk: 0.5, cx: 1.05, cy: 0.96 }} atDesktop={{ rk: 0.26, cx: 1.05, cy: 0.96 }} k={0.7} />
         <Rosace role="secondary" at={{ rk: 0.09, cx: 0.9, cy: 0.12 }} k={0.5} />
@@ -129,7 +129,7 @@ export default function HomePage() {
       </section>
 
       {/* 5 · Lire, rattraper */}
-      <section className="section" id="lire" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '0%', ['--veil-2' as string]: '30%' }}>
+      <section className="section" id="lire" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '30%', ['--veil-2' as string]: '44%' }}>
         <Rosace role="secondary" at={{ rk: 0.6, cx: -0.1, cy: 0.9 }} atDesktop={{ rk: 0.3, cx: 0.08, cy: 0.85 }} k={0.7} />
         <div className="veil" />
         <div className="wrap">
@@ -152,7 +152,7 @@ export default function HomePage() {
       </section>
 
       {/* 6 · Respect */}
-      <section className="section" id="respect" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '0%', ['--veil-2' as string]: '30%' }}>
+      <section className="section" id="respect" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '30%', ['--veil-2' as string]: '44%' }}>
         <Rosace role="secondary" at={{ rk: 0.5, cx: 1.1, cy: 0.3 }} atDesktop={{ rk: 0.28, cx: 0.95, cy: 0.4 }} k={0.5} />
         <div className="veil" />
         <div className="wrap">
@@ -167,7 +167,7 @@ export default function HomePage() {
                 <IconPause />
                 <div>
                   <h3>Pause des prières</h3>
-                  <p>Pendant tes règles, les prières se mettent en pause : rien ne compte contre toi.</p>
+                  <p>Tes prières se mettent en pause le temps qu&apos;il faut. Rien n&apos;est compté contre toi.</p>
                 </div>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function HomePage() {
       </section>
 
       {/* 7 · Cercle */}
-      <section className="section" id="cercle" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '0%', ['--veil-2' as string]: '22%' }}>
+      <section className="section" id="cercle" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '22%', ['--veil-2' as string]: '36%' }}>
         <Rosace at={{ rk: 0.62, cx: -0.1, cy: 0.6 }} atDesktop={{ rk: 0.32, cx: 0.06, cy: 0.5 }} k={0.7} />
         <div className="veil" />
         <div className="wrap">
@@ -199,7 +199,7 @@ export default function HomePage() {
       </section>
 
       {/* 8 · Paliers */}
-      <section className="section" id="paliers" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '0%', ['--veil-2' as string]: '24%' }}>
+      <section className="section" id="paliers" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '24%', ['--veil-2' as string]: '38%' }}>
         <Rosace role="secondary" at={{ rk: 0.75, cx: 0.5, cy: 1.05 }} atDesktop={{ rk: 0.4, cx: 0.5, cy: 1.1 }} k={0.5} />
         <div className="veil" />
         <div className="wrap">
@@ -234,7 +234,7 @@ export default function HomePage() {
       </section>
 
       {/* 10 · Test fermé */}
-      <section className="section" id="testeur" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '0%', ['--veil-2' as string]: '0%' }}>
+      <section className="section" id="testeur" style={{ ['--veil-dir' as string]: 'to bottom', ['--veil-1' as string]: '0%', ['--veil-2' as string]: '14%' }}>
         <Rosace at={{ rk: 0.9, cx: 0.5, cy: 1.08 }} atDesktop={{ rk: 0.45, cx: 0.5, cy: 1.08 }} />
         <div className="wrap">
           <div className="card cta-card reveal">

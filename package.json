@@ -12,7 +12,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/pages-legales.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.4",

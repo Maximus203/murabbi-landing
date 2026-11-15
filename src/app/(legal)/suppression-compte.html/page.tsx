@@ -14,7 +14,7 @@ export default function SuppressionComptePage() {
     <LegalDoc>
       <p className={styles.eyebrow}>Compte</p>
       <h1 className={styles.h1}>Supprimer ton compte Murabbi</h1>
-      <p className={styles.meta}>Dernière mise à jour : 26 août 2026</p>
+      <p className={styles.meta}>Dernière mise à jour : 15 novembre 2026</p>
 
       <p className={styles.lead}>
         Tu peux supprimer ton compte Murabbi et les données qui y sont rattachées à tout moment.
@@ -24,7 +24,7 @@ export default function SuppressionComptePage() {
       <h2 id="depuis-l-application-le-plus-rapide" className={styles.h2}>1. Depuis l&apos;application (le plus rapide)</h2>
       <p>
         Ouvre Murabbi, puis&nbsp;: <strong>Réglages</strong> → <strong>Compte</strong> →{' '}
-        <strong>Supprimer mon compte</strong>. Confirme, et la demande est enregistrée
+        <strong>Supprimer le compte</strong>. Confirme, et la demande est enregistrée
         immédiatement.
       </p>
 
@@ -46,15 +46,22 @@ export default function SuppressionComptePage() {
         </li>
         <li>Ton journal d&apos;habitudes, tes validations de prière et ta progression.</li>
         <li>
+          Ta position de calcul des prières, ton domicile et leur historique, tes favoris du
+          Coran et ta progression de lecture.
+        </li>
+        <li>
           Ton appartenance à un cercle, ainsi que ton pseudo et ton niveau qui y étaient
           visibles.
         </li>
         <li>Le jeton de notification lié à tes appareils.</li>
       </ul>
       <p>
-        Ta donnée de pause menstruelle et tes coordonnées de localisation n&apos;ont jamais
-        quitté ton téléphone&nbsp;: il n&apos;y a rien à supprimer côté serveur. Elles
-        disparaissent quand tu désinstalles l&apos;application. Voir la{' '}
+        Les dates, le motif et l&apos;historique de ta période, ta liste «&nbsp;À rattraper&nbsp;»
+        et la zone de ton domicile surveillée en arrière-plan sont gardés uniquement sur ton
+        téléphone&nbsp;: il n&apos;y a rien à supprimer côté serveur, et ils disparaissent quand
+        tu désinstalles l&apos;application. Les sauvegardes chiffrées de la base de données,
+        faites chaque jour, peuvent garder une copie de tes données après l&apos;effacement : elles
+        ne servent qu&apos;à restaurer la base après un incident. Voir la{' '}
         <a href="/confidentialite.html">politique de confidentialité</a>.
       </p>
 
@@ -63,13 +70,13 @@ export default function SuppressionComptePage() {
         Ton compte est <strong>désactivé immédiatement</strong> — tu ne peux plus t&apos;y
         connecter et tu disparais de ton cercle. Les données sont ensuite{' '}
         <strong>définitivement effacées après 30 jours</strong>. Ce délai existe pour te
-        permettre d&apos;annuler une suppression accidentelle&nbsp;: il te suffit de te
-        reconnecter avant son expiration. Passé ce délai, l&apos;effacement est réel et
-        irréversible.
+        permettre d&apos;annuler une suppression accidentelle&nbsp;: écris à l&apos;adresse
+        ci-dessus, depuis l&apos;adresse de ton compte, avant son expiration. Passé ce délai,
+        l&apos;effacement est réel et irréversible.
       </p>
       <p>
-        Aucune donnée n&apos;est conservée au-delà, sauf obligation légale de conservation qui
-        s&apos;imposerait à nous.
+        Hors les sauvegardes décrites plus haut, aucune donnée n&apos;est conservée au-delà, sauf
+        obligation légale de conservation qui s&apos;imposerait à nous.
       </p>
 
       <hr className={styles.rule} />

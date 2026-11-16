@@ -13,12 +13,35 @@ export default function ConfidentialitePage() {
     <LegalDoc>
       <p className={styles.eyebrow}>Confidentialité</p>
       <h1 className={styles.h1}>Politique de confidentialité</h1>
-      <p className={styles.meta}>Dernière mise à jour : 15 novembre 2026</p>
+      <p className={styles.meta}>Dernière mise à jour : 16 novembre 2026</p>
 
       <p className={styles.lead}>
         Cette page explique quelles données Murabbi enregistre, pourquoi, combien de temps elles
         sont gardées, qui peut les voir et comment les supprimer. Elle décrit l&apos;application
         à la date ci-dessus.
+      </p>
+
+      <h2 id="en-resume" className={styles.h2}>En résumé</h2>
+      <p>
+        Voici, en une liste, tout ce que Murabbi peut enregistrer sur ton compte. Le détail de
+        chaque point est dans les sections suivantes.
+      </p>
+      <ul>
+        <li><strong>Nom et prénom</strong>, <strong>adresse e-mail</strong>, <strong>pseudo</strong> et identifiant de ton compte.</li>
+        <li><strong>Genre</strong> et <strong>date de naissance</strong> (facultative).</li>
+        <li><strong>Position approximative</strong> (le lieu de calcul de tes prières, à environ 1&nbsp;km) et <strong>position précise</strong> (ton domicile, à environ 100&nbsp;m, si tu le renseignes).</li>
+        <li><strong>Pratique religieuse</strong> : tes prières, tes habitudes, tes lectures du Coran. Ce sont des croyances religieuses au sens de la loi : elles servent uniquement à faire marcher l&apos;application.</li>
+        <li><strong>Santé</strong> : deux nombres entre 0 et 21, dérivés de ta pause des règles si tu en déclares une. Rien d&apos;autre sur ta santé ne quitte ton téléphone.</li>
+        <li><strong>Contenu que tu écris</strong> : les titres et sous-tâches de tes habitudes, tes favoris et leurs étiquettes, les mots que tu envoies à ton cercle.</li>
+        <li><strong>Usage de l&apos;application</strong> : tes validations, tes points, ton niveau, ta série, ton rang au classement.</li>
+        <li><strong>Identifiants techniques</strong> : un identifiant propre à l&apos;installation de l&apos;application sur ton téléphone et le jeton de notification.</li>
+        <li><strong>Rapports d&apos;erreurs</strong> : type d&apos;erreur, version de l&apos;application, modèle et système du téléphone, sans ton compte.</li>
+      </ul>
+      <p>
+        Tout est transmis par une connexion chiffrée. Rien n&apos;est vendu, rien n&apos;est partagé
+        à des fins de publicité, aucune donnée n&apos;est utilisée pour te suivre d&apos;une
+        application à l&apos;autre. Tu peux demander la suppression de tout ou partie de ces
+        données à tout moment (voir «&nbsp;Combien de temps tes données sont gardées&nbsp;»).
       </p>
 
       <h2 id="qui-est-responsable-de-ces-donnees" className={styles.h2}>Qui est responsable de ces données</h2>
@@ -168,6 +191,17 @@ export default function ConfidentialitePage() {
           qui voient alors l&apos;adresse IP de ton téléphone. Tes favoris, leurs étiquettes et ta
           progression de lecture sont enregistrés d&apos;abord sur ton téléphone, puis envoyés à
           ton compte (Supabase) pour que tu les retrouves ailleurs.
+        </p>
+      </div>
+
+      <div className={styles.card}>
+        <strong>Ton téléphone et ton compte</strong>
+        <p>
+          Chaque installation de Murabbi crée un identifiant aléatoire, sans lien avec ton
+          téléphone ni avec ton identité publicitaire. Il est enregistré sur ton compte pour que
+          Murabbi sache sur quel appareil tes données sont à jour : un seul appareil est actif à la
+          fois, et en te connectant sur un autre, tu déconnectes le précédent. Cet identifiant n&apos;est
+          utilisé à aucune autre fin.
         </p>
       </div>
 

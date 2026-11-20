@@ -13,7 +13,7 @@ export default function ConfidentialitePage() {
     <LegalDoc>
       <p className={styles.eyebrow}>Confidentialité</p>
       <h1 className={styles.h1}>Politique de confidentialité</h1>
-      <p className={styles.meta}>Dernière mise à jour : 16 novembre 2026</p>
+      <p className={styles.meta}>Dernière mise à jour : 20 novembre 2026</p>
 
       <p className={styles.lead}>
         Cette page explique quelles données Murabbi enregistre, pourquoi, combien de temps elles
@@ -38,9 +38,12 @@ export default function ConfidentialitePage() {
         <li><strong>Rapports d&apos;erreurs</strong> : type d&apos;erreur, version de l&apos;application, modèle et système du téléphone, sans ton compte.</li>
       </ul>
       <p>
-        Tout est transmis par une connexion chiffrée. Rien n&apos;est vendu, rien n&apos;est partagé
-        à des fins de publicité, aucune donnée n&apos;est utilisée pour te suivre d&apos;une
-        application à l&apos;autre. Tu peux demander la suppression de tout ou partie de ces
+        Tout est transmis par une connexion chiffrée. Rien n&apos;est vendu et aucune donnée
+        n&apos;est utilisée pour te suivre d&apos;une application à l&apos;autre. Pour fonctionner,
+        l&apos;application envoie certaines de ces données aux services listés dans
+        «&nbsp;Les services qui interviennent&nbsp;» (par exemple ta position actuelle, sans arrondi,
+        à OpenStreetMap quand tu touches «&nbsp;Me localiser&nbsp;») : ils ne sont jamais utilisés à
+        des fins de publicité. Tu peux demander la suppression de tout ou partie de ces
         données à tout moment (voir «&nbsp;Combien de temps tes données sont gardées&nbsp;»).
       </p>
 
@@ -358,6 +361,36 @@ export default function ConfidentialitePage() {
       <p>
         Comme pour tout service en ligne, chacun de ces services voit l&apos;adresse IP de la
         connexion qui le contacte.
+      </p>
+
+      <h2 id="transferts-hors-du-senegal" className={styles.h2}>Transferts hors du Sénégal</h2>
+      <p>
+        Murabbi est éditée depuis le Sénégal, mais aucun des services listés ci-dessus n&apos;y
+        traite tes données : ce sont tous des services étrangers. Tes données quittent donc le
+        Sénégal dès que tu utilises l&apos;application ou le site.
+      </p>
+      <ul>
+        <li>
+          <strong>Supabase</strong> (comptes, réglages, progression, favoris, signalements, voix
+          des rappels, suggestions du site) : la base de données de Murabbi est hébergée en France
+          (région eu-west-3, Paris).
+        </li>
+        <li>
+          <strong>Sentry</strong>, <strong>Google</strong> (Firebase Cloud Messaging),{' '}
+          <strong>Resend</strong>, <strong>Vercel</strong>, <strong>Shorebird</strong>,{' '}
+          <strong>OpenStreetMap</strong> et <strong>Quran Foundation</strong> : nous n&apos;avons pas
+          vérifié dans quel pays chacun traite les données qu&apos;il reçoit, et nous ne pouvons pas
+          te l&apos;indiquer. Ce peut être un pays hors d&apos;Europe.
+        </li>
+      </ul>
+      <p>
+        Les garanties qui s&apos;appliquent réellement : toutes les connexions sont chiffrées, et
+        nous limitons ce qui part (les rapports d&apos;erreurs n&apos;ajoutent pas ton compte,
+        Shorebird ne reçoit aucune donnée personnelle, le libellé de ton domicile est demandé à
+        OpenStreetMap avec une position arrondie). Au-delà, la protection dépend des engagements
+        propres à chaque prestataire, dont nous ne pouvons pas te donner le détail ici. Si tu ne
+        veux pas que tes données passent par l&apos;un de ces services, écris-nous à l&apos;adresse
+        ci-dessus ou supprime ton compte.
       </p>
 
       <h2 id="ce-que-nous-ne-faisons-jamais" className={styles.h2}>Ce que nous ne faisons jamais</h2>

@@ -66,3 +66,24 @@ test('la page de suppression ne prétend pas que la position n\'a jamais quitté
   assert.doesNotMatch(suppression, /il te suffit de te reconnecter/i)
   assert.match(suppression, /Supprimer le compte/)
 })
+
+test('la phrase générale ne dit plus que rien n\'est partagé : des données partent aux services listés', () => {
+  assert.doesNotMatch(politique, /rien n'est partagé/i)
+  assert.match(politique, /sans arrondi/i)
+  assert.match(politique, /services listés dans « Les services qui interviennent »/)
+})
+
+test('la politique a une section sur les transferts hors du Sénégal', () => {
+  assert.match(politique, /Transferts hors du Sénégal/)
+  for (const nom of ['Supabase', 'Sentry', 'Google', 'Resend', 'Vercel', 'Shorebird', 'OpenStreetMap', 'Quran Foundation']) {
+    const section = politique.split('Transferts hors du Sénégal')[1]?.split('Ce que nous ne faisons jamais')[0] ?? ''
+    assert.ok(section.includes(nom), `${nom} absent de la section sur les transferts`)
+  }
+})
+
+test('la section sur les transferts ne promet pas une garantie non vérifiée', () => {
+  const section = politique.split('Transferts hors du Sénégal')[1]?.split('Ce que nous ne faisons jamais')[0] ?? ''
+  assert.match(section, /eu-west-3|Paris/)
+  assert.match(section, /pas vérifié|n'avons pas vérifié|ne sais pas|ne savons pas/i)
+  assert.doesNotMatch(section, /clauses contractuelles|décision d'adéquation|Privacy Shield|certifi/i)
+})
